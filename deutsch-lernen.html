@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deutsch lernen</title>
+<style>
+  :root {
+    --bg: #f6f4ef; --card: #ffffff; --ink: #1f2328; --muted: #646b73;
+    --line: #e2ded5; --accent: #b3261e; --accent-soft: #fbe9e7;
+    --ok: #1e7b45; --ok-soft: #e6f4ec; --hl: #fff3c4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b; --card: #1f2226; --ink: #e8e6e3; --muted: #9aa1a9;
+      --line: #33373d; --accent: #ff8a80; --accent-soft: #3a2422;
+      --ok: #6fcf97; --ok-soft: #1d3326; --hl: #4a3f12;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+    font: 16px/1.55 "Segoe UI", system-ui, sans-serif; }
+  header { padding: 22px 16px 0; max-width: 960px; margin: 0 auto; }
+  .top { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  h1 { margin: 0; font-size: 1.6rem; margin-right: auto; }
+  h1 .flag { display: inline-block; width: 26px; height: 18px; vertical-align: -2px; margin-right: 8px;
+    background: linear-gradient(#000 0 33.3%, #dd0000 33.3% 66.6%, #ffce00 66.6%); border-radius: 2px; }
+  .lessons { display: flex; gap: 6px; flex-wrap: wrap; }
+  .lessons button { font: inherit; font-weight: 600; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--card); color: var(--ink); cursor: pointer; }
+  .lessons button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .sub { color: var(--muted); margin: 6px 0 16px; }
+  nav { display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+  nav button { border: 0; background: none; color: var(--muted); font: inherit; font-weight: 600;
+    padding: 10px 14px; cursor: pointer; border-bottom: 3px solid transparent; }
+  nav button.active { color: var(--ink); border-bottom-color: var(--accent); }
+  main { max-width: 960px; margin: 0 auto; padding: 20px 16px 60px; }
+  section { display: none; }
+  section.active { display: block; }
+  h2 { font-size: 1.3rem; margin: 0 0 12px; }
+  h3 { font-size: 1.05rem; margin: 22px 0 8px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px 18px; margin-bottom: 14px; }
+  .rule { border-left: 4px solid var(--accent); background: var(--accent-soft); padding: 10px 14px; border-radius: 6px; margin: 10px 0; }
+  .formula { font-family: Consolas, monospace; font-size: .95rem; background: var(--bg);
+    border: 1px dashed var(--line); padding: 8px 12px; border-radius: 6px; display: inline-block; margin: 4px 0; }
+  .ex { margin: 6px 0; }
+  .ex .de { font-weight: 600; }
+  .ex .tr { color: var(--muted); font-size: .92rem; display: block; }
+  mark { background: var(--hl); color: inherit; padding: 0 2px; border-radius: 3px; }
+  .v { color: var(--accent); font-weight: 700; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .03em; }
+  .tablewrap { overflow-x: auto; }
+  .word { font-weight: 700; font-size: 1.05rem; }
+  .gram { color: var(--muted); font-size: .85rem; }
+  .art-der { color: #1565c0; } .art-die { color: #c62828; } .art-das { color: #2e7d32; }
+  @media (prefers-color-scheme: dark) { .art-der { color: #82b1ff; } .art-die { color: #ff8a80; } .art-das { color: #81c784; } }
+  input[type=search] { width: 100%; padding: 10px 12px; font: inherit; border: 1px solid var(--line);
+    border-radius: 8px; background: var(--card); color: var(--ink); margin-bottom: 12px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 680px) { .grid2 { grid-template-columns: 1fr; } }
+  .tip { font-size: .9rem; color: var(--muted); }
+  .compass { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; max-width: 280px; margin: 8px 0; text-align: center; font-size: .9rem; }
+  .compass div { padding: 6px; border-radius: 6px; }
+  .compass .d { background: var(--accent-soft); font-weight: 600; }
+  /* flashcards */
+  .flash { max-width: 520px; margin: 0 auto; text-align: center; }
+  .fc { background: var(--card); border: 1px solid var(--line); border-radius: 14px; min-height: 200px;
+    display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 24px; cursor: pointer; user-select: none; }
+  .fc .big { font-size: 1.8rem; font-weight: 700; }
+  .fc .small { color: var(--muted); margin-top: 8px; }
+  .fc .ans { margin-top: 14px; font-size: 1.1rem; }
+  .controls { display: flex; gap: 8px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
+  .btn { font: inherit; font-weight: 600; padding: 9px 16px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--card); color: var(--ink); cursor: pointer; }
+  .btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn.ok { background: var(--ok-soft); color: var(--ok); border-color: var(--ok); }
+  .score { color: var(--muted); margin-top: 10px; font-size: .9rem; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-bottom: 12px; }
+  .seg button { border: 0; background: var(--card); color: var(--muted); padding: 7px 12px; font: inherit; cursor: pointer; }
+  .seg button.on { background: var(--accent); color: #fff; }
+  /* exercises */
+  .item { padding: 10px 6px; border-bottom: 1px dashed var(--line); }
+  .item:last-child { border-bottom: 0; }
+  .item .num { display: inline-block; min-width: 26px; color: var(--muted); font-weight: 600; }
+  .item input[type=text], .item select { font: inherit; padding: 4px 8px; border: 1px solid var(--line);
+    border-radius: 6px; background: var(--bg); color: var(--ink); }
+  .item input[type=text] { width: 150px; }
+  .opts { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 0 26px; }
+  .opt { font: inherit; padding: 5px 12px; border-radius: 999px; border: 1px solid var(--line);
+    background: var(--card); color: var(--ink); cursor: pointer; }
+  .opt.sel { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .chips, .built { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 0 26px; min-height: 34px; }
+  .built { border: 1px dashed var(--line); border-radius: 8px; padding: 4px 6px; background: var(--bg); }
+  .built:empty::before { content: "click the words in the right order …"; color: var(--muted); font-size: .85rem; align-self: center; }
+  .chip { font: inherit; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--card);
+    color: var(--ink); cursor: pointer; }
+  .chip.used { visibility: hidden; }
+  .fb { margin-left: 26px; font-size: .9rem; font-weight: 600; }
+  .item.ok .fb { color: var(--ok); }
+  .item.bad .fb { color: var(--accent); }
+  .item.ok { background: var(--ok-soft); border-radius: 6px; }
+  .item.bad { background: var(--accent-soft); border-radius: 6px; }
+  .result { position: sticky; bottom: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 12px 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; box-shadow: 0 -4px 14px rgba(0,0,0,.08); }
+  .result .total { font-size: 1.15rem; font-weight: 700; margin-right: auto; }
+  @media print {
+    nav, .lessons, .controls, input[type=search], #sec-flash, #sec-ueb { display: none !important; }
+    section { display: block !important; page-break-after: always; }
+    body { background: #fff; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1><span class="flag"></span>Deutsch lernen</h1>
+    <div class="lessons" id="lessons"></div>
+  </div>
+  <p class="sub" id="topic"></p>
+  <nav id="tabs"></nav>
+</header>
+<main id="main"></main>
+
+<!-- ===== LESSONS: add one line per lesson file ===== -->
+<script src="lektionen/lektion-01.js"></script>
+<!-- <script src="lektionen/lektion-02.js"></script> -->
+
+<script>
+const LESSONS = (window.LESSONS || []).sort((a, b) => a.id - b.id);
+let L = null;                           // active lesson
+const $ = id => document.getElementById(id);
+const shuffle = a => [...a].sort(() => Math.random() - .5);
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+
+// ---------------- lesson switching ----------------
+function buildLessonPicker() {
+  $("lessons").innerHTML = "";
+  LESSONS.forEach(les => {
+    const b = document.createElement("button");
+    b.textContent = les.title; b.dataset.id = les.id;
+    b.onclick = () => openLesson(les.id);
+    $("lessons").appendChild(b);
+  });
+}
+
+function openLesson(id, tab) {
+  L = LESSONS.find(x => x.id === id) || LESSONS[0];
+  store.set("dl-lesson", L.id);
+  document.querySelectorAll("#lessons button").forEach(b => b.classList.toggle("on", +b.dataset.id === L.id));
+  $("topic").textContent = `${L.title} · ${L.topic}`;
+  document.title = `Deutsch lernen – ${L.title}`;
+
+  const tabs = [{ id: "dict", tab: "📖 Wörterbuch" }, ...L.grammar.map(g => ({ id: g.id, tab: g.tab })),
+                { id: "flash", tab: "🃏 Karteikarten" }, { id: "ueb", tab: "✍️ Übungen" }];
+  $("tabs").innerHTML = ""; $("main").innerHTML = "";
+  tabs.forEach(t => {
+    const b = document.createElement("button"); b.textContent = t.tab; b.dataset.t = t.id;
+    b.onclick = () => showTab(t.id); $("tabs").appendChild(b);
+    const s = document.createElement("section"); s.id = "sec-" + t.id; $("main").appendChild(s);
+  });
+  L.grammar.forEach(g => $("sec-" + g.id).innerHTML = g.html);
+  buildDict(); buildFlash(); buildExercises();
+  showTab(tabs.some(t => t.id === tab) ? tab : "dict");
+}
+
+function showTab(id) {
+  document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("active", b.dataset.t === id));
+  document.querySelectorAll("main section").forEach(s => s.classList.toggle("active", s.id === "sec-" + id));
+}
+
+// ---------------- dictionary ----------------
+const art = s => s.replace(/^(der|die|das) /, (m, a) => `<span class="art-${a}">${a}</span> `);
+function buildDict() {
+  $("sec-dict").innerHTML = `
+    <h2>Wörterbuch – ${L.title}</h2>
+    <input type="search" id="q" placeholder="Hledat / Search … (German, English or Czech)">
+    <div class="card tablewrap"><table>
+      <thead><tr><th>Deutsch</th><th>English</th><th>Česky</th><th>Beispiel</th></tr></thead>
+      <tbody id="dictBody"></tbody></table></div>
+    ${L.dictExtra ? `<div class="card">${L.dictExtra}</div>` : ""}`;
+  $("q").oninput = e => renderDict(e.target.value);
+  renderDict();
+}
+function renderDict(q = "") {
+  const n = q.trim().toLowerCase();
+  const rows = L.words.filter(w => !n || [w.de, w.en, w.cz, w.g].join(" ").toLowerCase().includes(n));
+  $("dictBody").innerHTML = rows.map(w => `
+    <tr><td><div class="word">${art(w.de)}</div><div class="gram">${w.g || ""}</div></td>
+    <td>${w.en}</td><td>${w.cz}</td>
+    <td><div class="ex"><span class="de">${w.ex || ""}</span><span class="tr">${w.ext || ""}</span></div></td></tr>`).join("")
+    || `<tr><td colspan="4" class="tip">Nothing found.</td></tr>`;
+}
+
+// ---------------- flashcards ----------------
+let decks = [], deckIdx = 0, dirMode = "de", queue = [], cur = null, known = 0, total = 0;
+function buildFlash() {
+  decks = [{ name: "Wörter", cards: L.words.map(w => ({ a: w.de, b: `${w.en}<br><small>${w.cz}</small>`, hint: w.g || "" })) },
+           ...(L.decks || [])];
+  deckIdx = 0; dirMode = "de";
+  $("sec-flash").innerHTML = `
+    <h2>Karteikarten – ${L.title}</h2>
+    <div class="flash">
+      <div class="seg" id="deck">${decks.map((d, i) => `<button data-i="${i}" class="${i ? "" : "on"}">${d.name}</button>`).join("")}</div>
+      <div class="seg" id="dir"><button data-r="de" class="on">DE → EN/CZ</button><button data-r="en">EN/CZ → DE</button></div>
+      <div class="fc" id="card" title="Click to flip">
+        <div class="big" id="fFront"></div><div class="small" id="fHint"></div><div class="ans" id="fBack" hidden></div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="again">✗ Again</button>
+        <button class="btn ok" id="know">✓ I know it</button>
+        <button class="btn" id="shuffle">↻ Restart</button>
+      </div>
+      <div class="score" id="score"></div>
+    </div>`;
+  $("card").onclick = () => { $("fBack").hidden = false; $("fHint").style.display = "none"; };
+  $("know").onclick = () => { if (cur) { known++; nextCard(); } };
+  $("again").onclick = () => { if (cur) { queue.push(cur); nextCard(); } };
+  $("shuffle").onclick = startDeck;
+  document.querySelectorAll("#deck button").forEach(b => b.onclick = () => {
+    document.querySelectorAll("#deck button").forEach(x => x.classList.toggle("on", x === b));
+    deckIdx = +b.dataset.i; startDeck();
+  });
+  document.querySelectorAll("#dir button").forEach(b => b.onclick = () => {
+    document.querySelectorAll("#dir button").forEach(x => x.classList.toggle("on", x === b));
+    dirMode = b.dataset.r; startDeck();
+  });
+  startDeck();
+}
+function startDeck() { queue = shuffle(decks[deckIdx].cards); total = queue.length; known = 0; nextCard(); }
+function nextCard() {
+  $("fBack").hidden = true; $("fHint").style.display = "";
+  cur = queue.shift();
+  if (!cur) {
+    $("fFront").textContent = "🎉 Fertig!"; $("fHint").textContent = "All cards known – press Restart.";
+    $("score").textContent = ""; return;
+  }
+  const flip = dirMode === "en" && !cur.fixed;
+  $("fFront").innerHTML = flip ? cur.b : cur.a;
+  $("fBack").innerHTML = (flip ? cur.a : cur.b) + `<div class="small">${cur.hint}</div>`;
+  $("fHint").textContent = "click to show answer";
+  $("score").textContent = `Known: ${known} / ${total} · left in deck: ${queue.length + 1}`;
+}
+
+// ---------------- exercises ----------------
+const norm = s => (s || "").toLowerCase().replace(/ä/g, "ae").replace(/ö/g, "oe").replace(/ü/g, "ue")
+  .replace(/ß/g, "ss").replace(/[.,!?;:]/g, "").replace(/\s+/g, " ").trim();
+let exState = [], exChecked = false;
+
+function buildExercises() {
+  const pts = L.exercises.reduce((s, sec) => s + sec.items.length, 0);
+  $("sec-ueb").innerHTML = `
+    <h2>Übungen – ${L.title} (${pts} Punkte)</h2>
+    <p class="tip">Fill everything in, then press <b>Check</b>. Typing tip: you can write ae / oe / ue / ss instead of ä / ö / ü / ß. Capital letters don't matter.</p>
+    <div id="exBox"></div>
+    <div class="result">
+      <span class="total" id="exTotal"></span>
+      <button class="btn primary" id="exCheck">✓ Check</button>
+      <button class="btn" id="exReset">↻ New attempt</button>
+    </div>`;
+  $("exCheck").onclick = checkExercises;
+  $("exReset").onclick = () => { renderExercises(); window.scrollTo(0, 0); };
+  renderExercises();
+}
+
+function renderExercises() {
+  exChecked = false; exState = [];
+  const box = $("exBox"); box.innerHTML = "";
+  let n = 0;
+  L.exercises.forEach(sec => {
+    const card = document.createElement("div"); card.className = "card";
+    card.innerHTML = `<h3 style="margin-top:0">${sec.title}</h3><p class="tip" style="margin-top:0">${sec.desc}</p>`;
+    sec.items.forEach(it => {
+      n++;
+      const st = { it, val: it.t === "order" ? [] : "", el: document.createElement("div") };
+      st.el.className = "item";
+      const num = `<span class="num">${n}.</span>`;
+      if (it.t === "gap") {
+        st.el.innerHTML = num + it.q.replace("___", `<input type="text" autocomplete="off" spellcheck="false">`) + `<div class="fb"></div>`;
+        st.el.querySelector("input").oninput = e => { st.val = e.target.value; updateEx(); };
+      } else if (it.t === "sel") {
+        st.el.innerHTML = `${num}<b>${it.q}</b> → <select><option value="">– choose –</option>${shuffle(it.opts)
+          .map(o => `<option>${o}</option>`).join("")}</select><div class="fb"></div>`;
+        st.el.querySelector("select").onchange = e => { st.val = e.target.value; updateEx(); };
+      } else if (it.t === "mc") {
+        st.el.innerHTML = `${num}${it.q.replace("___", "<b>_____</b>")}<div class="opts"></div><div class="fb"></div>`;
+        const opts = st.el.querySelector(".opts");
+        shuffle(it.opts).forEach(o => {
+          const b = document.createElement("button"); b.className = "opt"; b.textContent = o;
+          b.onclick = () => { if (exChecked) return; st.val = o;
+            opts.querySelectorAll(".opt").forEach(x => x.classList.toggle("sel", x === b)); updateEx(); };
+          opts.appendChild(b);
+        });
+      } else if (it.t === "order") {
+        st.el.innerHTML = `${num}${it.q}<div class="built"></div><div class="chips"></div><div class="fb"></div>`;
+        const built = st.el.querySelector(".built"), chips = st.el.querySelector(".chips");
+        const sync = () => { st.val = [...built.children].map(x => x.textContent); updateEx(); };
+        shuffle(it.w).forEach(w => {
+          const c = document.createElement("button"); c.className = "chip"; c.textContent = w;
+          c.onclick = () => {
+            if (exChecked) return;
+            c.classList.add("used");
+            const b = document.createElement("button"); b.className = "chip"; b.textContent = w;
+            b.onclick = () => { if (exChecked) return; b.remove(); c.classList.remove("used"); sync(); };
+            built.appendChild(b); sync();
+          };
+          chips.appendChild(c);
+        });
+      }
+      card.appendChild(st.el); exState.push(st);
+    });
+    box.appendChild(card);
+  });
+  updateEx();
+}
+
+const answered = st => st.it.t === "order" ? st.val.length === st.it.w.length : norm(st.val) !== "";
+function isRight(st) {
+  const v = norm(st.it.t === "order" ? st.val.join(" ") : st.val);
+  return [].concat(st.it.a).some(a => norm(a) === v);
+}
+function updateEx() {
+  if (exChecked) return;
+  $("exTotal").textContent = `${exState.filter(answered).length} / ${exState.length} answered`;
+}
+function checkExercises() {
+  exChecked = true; let pts = 0;
+  exState.forEach(st => {
+    const ok = isRight(st); if (ok) pts++;
+    st.el.classList.toggle("ok", ok); st.el.classList.toggle("bad", !ok);
+    st.el.querySelectorAll("input, select").forEach(x => x.disabled = true);
+    st.el.querySelector(".fb").textContent = ok ? "✓ richtig" : `✗ correct answer: ${[].concat(st.it.a)[0]}`;
+  });
+  const pct = Math.round(pts / exState.length * 100);
+  const grade = pct >= 90 ? "Sehr gut! 🎉" : pct >= 75 ? "Gut! 👍" : pct >= 50 ? "Befriedigend – review the mistakes." : "Repeat the grammar tabs and try again.";
+  $("exTotal").textContent = `${pts} / ${exState.length} points (${pct} %) – ${grade}`;
+}
+
+// ---------------- start ----------------
+if (!LESSONS.length) {
+  $("main").innerHTML = `<div class="card">No lessons found. Check that the <b>lektionen</b> folder is next to this file.</div>`;
+} else {
+  buildLessonPicker();
+  openLesson(+store.get("dl-lesson") || LESSONS[0].id);
+}
+</script>
+</body>
+</html>
