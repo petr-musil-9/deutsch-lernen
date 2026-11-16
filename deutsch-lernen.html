@@ -64,6 +64,11 @@
   .compass { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; max-width: 280px; margin: 8px 0; text-align: center; font-size: .9rem; }
   .compass div { padding: 6px; border-radius: 6px; }
   .compass .d { background: var(--accent-soft); font-weight: 600; }
+  .pic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; max-width: 300px; }
+  .pic div { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; text-align: center;
+    border: 1px solid var(--line); border-radius: 6px; background: var(--bg); font-size: 2rem; }
+  .pic.lbl div { font-size: .85rem; font-weight: 600; aspect-ratio: auto; padding: 14px 4px; background: var(--accent-soft); }
+  tr.grp td { background: var(--bg); font-weight: 700; padding-top: 14px; }
   /* flashcards */
   .flash { max-width: 520px; margin: 0 auto; text-align: center; }
   .fc { background: var(--card); border: 1px solid var(--line); border-radius: 14px; min-height: 200px;
@@ -105,6 +110,22 @@
   .result { position: sticky; bottom: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px;
     padding: 12px 16px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; box-shadow: 0 -4px 14px rgba(0,0,0,.08); }
   .result .total { font-size: 1.15rem; font-weight: 700; margin-right: auto; }
+  .item .trq { font-weight: 600; }
+  .item input.wide { display: block; width: calc(100% - 26px); margin: 6px 0 0 26px; }
+  .badge { display: inline-block; font-size: .75rem; font-weight: 700; padding: 1px 8px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent); vertical-align: 2px; margin-right: 6px; }
+  .lessons button.test { border-style: dashed; }
+  .lessons button.test.on { border-style: solid; }
+  /* final evaluation */
+  .report { border: 2px solid var(--accent); }
+  .report .big { font-size: 2rem; font-weight: 800; line-height: 1.2; }
+  .bar { height: 10px; background: var(--bg); border: 1px solid var(--line); border-radius: 999px; overflow: hidden; min-width: 80px; }
+  .bar span { display: block; height: 100%; background: var(--ok); }
+  .bar span.mid { background: #e0a100; } .bar span.low { background: var(--accent); }
+  .report td.n { white-space: nowrap; font-weight: 600; }
+  .mist td { font-size: .9rem; }
+  .mist .yours { color: var(--accent); text-decoration: line-through; }
+  .mist .right { color: var(--ok); font-weight: 600; }
   @media print {
     nav, .lessons, .controls, input[type=search], #sec-flash, #sec-ueb { display: none !important; }
     section { display: block !important; page-break-after: always; }
@@ -125,7 +146,8 @@
 
 <!-- ===== LESSONS: add one line per lesson file ===== -->
 <script src="lektionen/lektion-01.js"></script>
-<!-- <script src="lektionen/lektion-02.js"></script> -->
+<script src="lektionen/lektion-02.js"></script>
+<script src="lektionen/test-01-02.js"></script>
 
 <script>
 const LESSONS = (window.LESSONS || []).sort((a, b) => a.id - b.id);
@@ -140,7 +162,8 @@ function buildLessonPicker() {
   $("lessons").innerHTML = "";
   LESSONS.forEach(les => {
     const b = document.createElement("button");
-    b.textContent = les.title; b.dataset.id = les.id;
+    b.textContent = (les.review ? "📝 " : "") + les.title; b.dataset.id = les.id;
+    if (les.review) b.className = "test";
     b.onclick = () => openLesson(les.id);
     $("lessons").appendChild(b);
   });
@@ -153,7 +176,8 @@ function openLesson(id, tab) {
   $("topic").textContent = `${L.title} · ${L.topic}`;
   document.title = `Deutsch lernen – ${L.title}`;
 
-  const tabs = [{ id: "dict", tab: "📖 Wörterbuch" }, ...L.grammar.map(g => ({ id: g.id, tab: g.tab })),
+  const tabs = L.review ? [{ id: "ueb", tab: "📝 Souhrnný test" }] :
+               [{ id: "dict", tab: "📖 Wörterbuch" }, ...L.grammar.map(g => ({ id: g.id, tab: g.tab })),
                 { id: "flash", tab: "🃏 Karteikarten" }, { id: "ueb", tab: "✍️ Übungen" }];
   $("tabs").innerHTML = ""; $("main").innerHTML = "";
   tabs.forEach(t => {
@@ -161,6 +185,7 @@ function openLesson(id, tab) {
     b.onclick = () => showTab(t.id); $("tabs").appendChild(b);
     const s = document.createElement("section"); s.id = "sec-" + t.id; $("main").appendChild(s);
   });
+  if (L.review) { buildExercises(); showTab("ueb"); return; }
   L.grammar.forEach(g => $("sec-" + g.id).innerHTML = g.html);
   buildDict(); buildFlash(); buildExercises();
   showTab(tabs.some(t => t.id === tab) ? tab : "dict");
@@ -187,10 +212,14 @@ function buildDict() {
 function renderDict(q = "") {
   const n = q.trim().toLowerCase();
   const rows = L.words.filter(w => !n || [w.de, w.en, w.cz, w.g].join(" ").toLowerCase().includes(n));
-  $("dictBody").innerHTML = rows.map(w => `
+  let lastGrp = null;
+  $("dictBody").innerHTML = rows.map(w => {
+    const head = !n && w.grp && w.grp !== lastGrp ? `<tr class="grp"><td colspan="4">${w.grp}</td></tr>` : "";
+    lastGrp = w.grp;
+    return head + `
     <tr><td><div class="word">${art(w.de)}</div><div class="gram">${w.g || ""}</div></td>
     <td>${w.en}</td><td>${w.cz}</td>
-    <td><div class="ex"><span class="de">${w.ex || ""}</span><span class="tr">${w.ext || ""}</span></div></td></tr>`).join("")
+    <td><div class="ex"><span class="de">${w.ex || ""}</span><span class="tr">${w.ext || ""}</span></div></td></tr>`; }).join("")
     || `<tr><td colspan="4" class="tip">Nothing found.</td></tr>`;
 }
 
@@ -251,9 +280,13 @@ let exState = [], exChecked = false;
 
 function buildExercises() {
   const pts = L.exercises.reduce((s, sec) => s + sec.items.length, 0);
+  let last = null; try { last = JSON.parse(store.get("dl-res-" + L.id)); } catch (e) {}
   $("sec-ueb").innerHTML = `
-    <h2>Übungen – ${L.title} (${pts} Punkte)</h2>
-    <p class="tip">Fill everything in, then press <b>Check</b>. Typing tip: you can write ae / oe / ue / ss instead of ä / ö / ü / ß. Capital letters don't matter.</p>
+    <h2>${L.review ? "Souhrnný test" : "Übungen"} – ${L.title} (${pts} Punkte)</h2>
+    <p class="tip">Fill everything in, then press <b>Check</b>${L.review ? " – you'll get a final evaluation with your grade, results per topic and a list of mistakes" : ""}.
+      Typing tip: you can write ae / oe / ue / ss instead of ä / ö / ü / ß. Capital letters don't matter.
+      ${last ? `<br>Last result: <b>${last.pts} / ${last.total} (${last.pct} %)</b> · best: <b>${last.best} %</b> · ${last.date}` : ""}</p>
+    <div id="exReport"></div>
     <div id="exBox"></div>
     <div class="result">
       <span class="total" id="exTotal"></span>
@@ -267,18 +300,22 @@ function buildExercises() {
 
 function renderExercises() {
   exChecked = false; exState = [];
-  const box = $("exBox"); box.innerHTML = "";
+  const box = $("exBox"); box.innerHTML = ""; $("exReport").innerHTML = "";
   let n = 0;
   L.exercises.forEach(sec => {
     const card = document.createElement("div"); card.className = "card";
-    card.innerHTML = `<h3 style="margin-top:0">${sec.title}</h3><p class="tip" style="margin-top:0">${sec.desc}</p>`;
+    card.innerHTML = `<h3 style="margin-top:0">${sec.tag ? `<span class="badge">${sec.tag}</span>` : ""}${sec.title}</h3><p class="tip" style="margin-top:0">${sec.desc}</p>`;
     sec.items.forEach(it => {
       n++;
-      const st = { it, val: it.t === "order" ? [] : "", el: document.createElement("div") };
+      const st = { it, sec, n, val: it.t === "order" ? [] : "", el: document.createElement("div") };
       st.el.className = "item";
       const num = `<span class="num">${n}.</span>`;
       if (it.t === "gap") {
         st.el.innerHTML = num + it.q.replace("___", `<input type="text" autocomplete="off" spellcheck="false">`) + `<div class="fb"></div>`;
+        st.el.querySelector("input").oninput = e => { st.val = e.target.value; updateEx(); };
+      } else if (it.t === "tr") {
+        st.el.innerHTML = `${num}<span class="trq">${it.q}</span>
+          <input type="text" class="wide" autocomplete="off" spellcheck="false" placeholder="Deutsch …"><div class="fb"></div>`;
         st.el.querySelector("input").oninput = e => { st.val = e.target.value; updateEx(); };
       } else if (it.t === "sel") {
         st.el.innerHTML = `${num}<b>${it.q}</b> → <select><option value="">– choose –</option>${shuffle(it.opts)
@@ -333,9 +370,81 @@ function checkExercises() {
     st.el.querySelectorAll("input, select").forEach(x => x.disabled = true);
     st.el.querySelector(".fb").textContent = ok ? "✓ richtig" : `✗ correct answer: ${[].concat(st.it.a)[0]}`;
   });
-  const pct = Math.round(pts / exState.length * 100);
-  const grade = pct >= 90 ? "Sehr gut! 🎉" : pct >= 75 ? "Gut! 👍" : pct >= 50 ? "Befriedigend – review the mistakes." : "Repeat the grammar tabs and try again.";
-  $("exTotal").textContent = `${pts} / ${exState.length} points (${pct} %) – ${grade}`;
+  const total = exState.length, pct = Math.round(pts / total * 100);
+  const g = gradeOf(pct);
+  $("exTotal").textContent = `${pts} / ${total} points (${pct} %) – ${g.de}`;
+
+  // remember result
+  let prev = null; try { prev = JSON.parse(store.get("dl-res-" + L.id)); } catch (e) {}
+  store.set("dl-res-" + L.id, JSON.stringify({ pts, total, pct, best: Math.max(pct, prev ? prev.best : 0),
+    date: new Date().toLocaleDateString("cs-CZ") }));
+
+  renderReport(pts, total, pct, g);
+  $("exReport").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function gradeOf(pct) {
+  return pct >= 90 ? { n: 1, cz: "výborně", de: "Sehr gut! 🎉" }
+       : pct >= 75 ? { n: 2, cz: "chvalitebně", de: "Gut! 👍" }
+       : pct >= 60 ? { n: 3, cz: "dobře", de: "Befriedigend" }
+       : pct >= 45 ? { n: 4, cz: "dostatečně", de: "Ausreichend – review the mistakes" }
+       :             { n: 5, cz: "nedostatečně", de: "Repeat the grammar tabs and try again" };
+}
+
+const stripHtml = s => { const d = document.createElement("div"); d.innerHTML = s; return d.textContent.trim(); };
+const barCls = p => p >= 80 ? "" : p >= 50 ? "mid" : "low";
+
+function renderReport(pts, total, pct, g) {
+  // per section
+  const secs = L.exercises.map(sec => {
+    const items = exState.filter(st => st.sec === sec);
+    const ok = items.filter(isRight).length;
+    return { sec, ok, n: items.length, p: Math.round(ok / items.length * 100) };
+  });
+  const unanswered = exState.filter(st => !answered(st)).length;
+  const mistakes = exState.filter(st => !isRight(st));
+  const weak = secs.filter(s => s.p < 80 && s.sec.ref);
+  const lessonTitle = id => (LESSONS.find(x => x.id === id) || {}).title || "";
+  const tabName = (id, tab) => { const les = LESSONS.find(x => x.id === id); if (!les) return tab;
+    if (tab === "dict") return "📖 Wörterbuch"; const gr = les.grammar.find(x => x.id === tab); return gr ? gr.tab : tab; };
+  // de-duplicate review links
+  const links = [...new Map(weak.map(s => [s.sec.ref.join("|"), s.sec.ref])).values()];
+
+  $("exReport").innerHTML = `
+    <div class="card report">
+      <h2 style="margin-top:0">📊 Závěrečné vyhodnocení</h2>
+      <div class="big">${pts} / ${total} bodů · ${pct} %</div>
+      <p style="margin:4px 0 10px">Známka: <b>${g.n} – ${g.cz}</b> · <i>${g.de}</i>
+        ${unanswered ? `<br><span class="tip">Nevyplněno: ${unanswered} úloh (počítají se jako chyba).</span>` : ""}</p>
+      <div class="bar" style="height:14px"><span class="${barCls(pct)}" style="width:${pct}%"></span></div>
+
+      <h3>Výsledky podle témat</h3>
+      <div class="tablewrap"><table>
+        <thead><tr><th>Téma</th><th>Body</th><th style="width:35%">Úspěšnost</th></tr></thead>
+        <tbody>${secs.map(s => `<tr>
+          <td>${s.sec.tag ? `<span class="badge">${s.sec.tag}</span>` : ""}${s.sec.title}</td>
+          <td class="n">${s.ok} / ${s.n}</td>
+          <td><div class="bar"><span class="${barCls(s.p)}" style="width:${s.p}%"></span></div></td></tr>`).join("")}</tbody>
+      </table></div>
+
+      ${links.length ? `<h3>Co zopakovat</h3>
+        <p class="tip" style="margin-top:0">Témata pod 80 % – klikni a otevře se příslušná kapitola:</p>
+        <div class="controls" style="justify-content:flex-start">${links.map(([id, tab]) =>
+          `<button class="btn" data-l="${id}" data-t="${tab}">${lessonTitle(id)} · ${tabName(id, tab)}</button>`).join("")}</div>`
+        : `<p><b>Všechna témata nad 80 % – výborně, můžeš pokračovat dál! 🎉</b></p>`}
+
+      ${mistakes.length ? `<h3>Chyby (${mistakes.length})</h3>
+        <div class="tablewrap"><table class="mist">
+          <thead><tr><th>#</th><th>Úloha</th><th>Tvoje odpověď</th><th>Správně</th></tr></thead>
+          <tbody>${mistakes.map(st => {
+            const yours = st.it.t === "order" ? st.val.join(" ") : st.val;
+            return `<tr><td class="n">${st.n}.</td><td>${stripHtml(st.it.q).replace(/___/g, "…")}</td>
+              <td>${yours ? `<span class="yours">${yours.replace(/</g, "&lt;")}</span>` : `<span class="tip">–</span>`}</td>
+              <td class="right">${[].concat(st.it.a)[0]}</td></tr>`; }).join("")}</tbody>
+        </table></div>` : ""}
+    </div>`;
+  $("exReport").querySelectorAll("button[data-l]").forEach(b =>
+    b.onclick = () => { openLesson(+b.dataset.l, b.dataset.t); window.scrollTo(0, 0); });
 }
 
 // ---------------- start ----------------
