@@ -2,7 +2,7 @@
 // LEKTION 1 – Städte, Himmelsrichtungen, Beruf
 // To make a new lesson: copy this file to lektion-02.js, change the
 // content, and add <script src="lektionen/lektion-02.js"></script>
-// in deutsch-lernen.html (next to the line for lektion-01.js).
+// in index.html (next to the line for lektion-01.js).
 // =====================================================================
 (function () {
   const VERBS = [
