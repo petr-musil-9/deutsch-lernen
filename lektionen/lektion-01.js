@@ -27,8 +27,8 @@
     ["hoch","höher","am höchsten"],["nah","näher","am nächsten"],["teuer","teurer","am teuersten"],
     ["schnell","schneller","am schnellsten"],["klein","kleiner","am kleinsten"],["berühmt","berühmter","am berühmtesten"],
   ];
-  const MATCH_R = ["inhabitant / obyvatel", "workshop, garage / dílna, autoservis", "famous / slavný",
-    "different, various / různý", "to sell / prodávat"];
+  const MATCH_R = ["inhabitant", "workshop, garage", "famous",
+    "different, various", "to sell"];
 
   window.LESSONS = window.LESSONS || [];
   window.LESSONS.push({
@@ -38,39 +38,39 @@
 
     // ---------- Wörterbuch ----------
     words: [
-      { de: "im Norden", g: "der Norden", en: "in the north", cz: "na severu",
+      { de: "im Norden", g: "der Norden", en: "in the north",
         ex: "Hamburg liegt im Norden von Deutschland.", ext: "Hamburg is in the north of Germany." },
-      { de: "im Süden", g: "der Süden", en: "in the south", cz: "na jihu",
+      { de: "im Süden", g: "der Süden", en: "in the south",
         ex: "München liegt im Süden.", ext: "Munich is in the south." },
-      { de: "im Osten", g: "der Osten", en: "in the east", cz: "na východě",
+      { de: "im Osten", g: "der Osten", en: "in the east",
         ex: "Dresden liegt im Osten von Deutschland.", ext: "Dresden is in the east of Germany." },
-      { de: "im Westen", g: "der Westen", en: "in the west", cz: "na západě",
+      { de: "im Westen", g: "der Westen", en: "in the west",
         ex: "Köln liegt im Westen.", ext: "Cologne is in the west." },
-      { de: "der Einwohner", g: "-, die Einwohner · f: die Einwohnerin, -nen", en: "inhabitant, resident", cz: "obyvatel",
+      { de: "der Einwohner", g: "-, die Einwohner · f: die Einwohnerin, -nen", en: "inhabitant, resident",
         ex: "Berlin hat 3,7 Millionen Einwohner.", ext: "Berlin has 3.7 million inhabitants." },
-      { de: "im Beruf", g: "der Beruf, -e", en: "at work, in one's job", cz: "v zaměstnání, v práci",
+      { de: "im Beruf", g: "der Beruf, -e", en: "at work, in one's job",
         ex: "Im Beruf spreche ich oft Englisch.", ext: "At work I often speak English." },
-      { de: "berühmt", g: "adj. · berühmter, am berühmtesten", en: "famous", cz: "slavný, proslulý",
+      { de: "berühmt", g: "adj. · berühmter, am berühmtesten", en: "famous",
         ex: "Die Stadt ist für ihr Bier berühmt.", ext: "The city is famous for its beer. (berühmt für + Akk.)" },
-      { de: "zweitgrößte", g: "adj. (zweit- + größte)", en: "second largest", cz: "druhý největší",
+      { de: "zweitgrößte", g: "adj. (zweit- + größte)", en: "second largest",
         ex: "Hamburg ist die zweitgrößte Stadt Deutschlands.", ext: "Hamburg is the second-largest city in Germany." },
-      { de: "verkaufen", g: "verkauft, verkaufte, hat verkauft", en: "to sell", cz: "prodávat, prodat",
+      { de: "verkaufen", g: "verkauft, verkaufte, hat verkauft", en: "to sell",
         ex: "Die Firma verkauft Fahrräder.", ext: "The company sells bicycles. (opposite: kaufen = buy)" },
-      { de: "die Werkstatt", g: "-, die Werkstätten", en: "workshop; car repair garage", cz: "dílna; autoservis",
+      { de: "die Werkstatt", g: "-, die Werkstätten", en: "workshop; car repair garage",
         ex: "Mein Auto ist in der Werkstatt.", ext: "My car is at the garage." },
-      { de: "verschieden", g: "adj.", en: "different, various", cz: "různý, rozdílný",
+      { de: "verschieden", g: "adj.", en: "different, various",
         ex: "Wir verkaufen verschiedene Räder.", ext: "We sell various bikes." },
-      { de: "das Rad", g: "-(e)s, die Räder", en: "wheel; bike (= Fahrrad)", cz: "kolo",
+      { de: "das Rad", g: "-(e)s, die Räder", en: "wheel; bike (= Fahrrad)",
         ex: "Ich fahre jeden Tag mit dem Rad zur Arbeit.", ext: "I ride my bike to work every day." },
     ],
 
     // extra HTML shown under the dictionary table (optional)
     dictExtra: `
-      <h3 style="margin-top:0">Himmelsrichtungen (světové strany)</h3>
+      <h3 style="margin-top:0">Himmelsrichtungen (points of the compass)</h3>
       <div class="compass">
-        <div></div><div class="d">im Norden<br><small>sever</small></div><div></div>
-        <div class="d">im Westen<br><small>západ</small></div><div>🧭</div><div class="d">im Osten<br><small>východ</small></div>
-        <div></div><div class="d">im Süden<br><small>jih</small></div><div></div>
+        <div></div><div class="d">im Norden<br><small>north</small></div><div></div>
+        <div class="d">im Westen<br><small>west</small></div><div>🧭</div><div class="d">im Osten<br><small>east</small></div>
+        <div></div><div class="d">im Süden<br><small>south</small></div><div></div>
       </div>
       <p class="tip">All four are masculine: <b>der</b> Norden → <b>im</b> (= in dem) Norden. You'll also see
         <i>Norddeutschland, Süddeutschland</i>, and <i>nördlich / südlich / westlich / östlich von</i> (north/south/west/east of).</p>`,
@@ -78,7 +78,7 @@
     // ---------- Grammatik (one tab each) ----------
     grammar: [
       { id: "weil", tab: "🔗 weil", html: `
-  <h2>Konjunktion <i>weil</i> (because / protože)</h2>
+  <h2>Konjunktion <i>weil</i> (because)</h2>
   <div class="card">
     <div class="rule"><b>Main rule:</b> <i>weil</i> starts a subordinate clause, so the <b>conjugated verb goes to the very end</b>.</div>
     <div class="formula">Hauptsatz , weil + Subjekt + … + <span class="v">Verb</span>.</div>
@@ -124,7 +124,7 @@
   </div>` },
 
       { id: "komp", tab: "📈 Komparativ / Superlativ", html: `
-  <h2>Komparativ (2. stupeň) &amp; Superlativ (3. stupeň)</h2>
+  <h2>Komparativ &amp; Superlativ</h2>
   <div class="grid2">
     <div class="card">
       <h3 style="margin-top:0">Komparativ: adjective + <b>-er</b> (+ als)</h3>

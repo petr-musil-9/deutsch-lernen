@@ -176,7 +176,7 @@ function openLesson(id, tab) {
   $("topic").textContent = `${L.title} · ${L.topic}`;
   document.title = `Deutsch lernen – ${L.title}`;
 
-  const tabs = L.review ? [{ id: "ueb", tab: "📝 Souhrnný test" }] :
+  const tabs = L.review ? [{ id: "ueb", tab: "📝 Final test" }] :
                [{ id: "dict", tab: "📖 Wörterbuch" }, ...L.grammar.map(g => ({ id: g.id, tab: g.tab })),
                 { id: "flash", tab: "🃏 Karteikarten" }, { id: "ueb", tab: "✍️ Übungen" }];
   $("tabs").innerHTML = ""; $("main").innerHTML = "";
@@ -201,9 +201,9 @@ const art = s => s.replace(/^(der|die|das) /, (m, a) => `<span class="art-${a}">
 function buildDict() {
   $("sec-dict").innerHTML = `
     <h2>Wörterbuch – ${L.title}</h2>
-    <input type="search" id="q" placeholder="Hledat / Search … (German, English or Czech)">
+    <input type="search" id="q" placeholder="Search … (German or English)">
     <div class="card tablewrap"><table>
-      <thead><tr><th>Deutsch</th><th>English</th><th>Česky</th><th>Beispiel</th></tr></thead>
+      <thead><tr><th>Deutsch</th><th>English</th><th>Beispiel</th></tr></thead>
       <tbody id="dictBody"></tbody></table></div>
     ${L.dictExtra ? `<div class="card">${L.dictExtra}</div>` : ""}`;
   $("q").oninput = e => renderDict(e.target.value);
@@ -211,29 +211,29 @@ function buildDict() {
 }
 function renderDict(q = "") {
   const n = q.trim().toLowerCase();
-  const rows = L.words.filter(w => !n || [w.de, w.en, w.cz, w.g].join(" ").toLowerCase().includes(n));
+  const rows = L.words.filter(w => !n || [w.de, w.en, w.g].join(" ").toLowerCase().includes(n));
   let lastGrp = null;
   $("dictBody").innerHTML = rows.map(w => {
-    const head = !n && w.grp && w.grp !== lastGrp ? `<tr class="grp"><td colspan="4">${w.grp}</td></tr>` : "";
+    const head = !n && w.grp && w.grp !== lastGrp ? `<tr class="grp"><td colspan="3">${w.grp}</td></tr>` : "";
     lastGrp = w.grp;
     return head + `
     <tr><td><div class="word">${art(w.de)}</div><div class="gram">${w.g || ""}</div></td>
-    <td>${w.en}</td><td>${w.cz}</td>
+    <td>${w.en}</td>
     <td><div class="ex"><span class="de">${w.ex || ""}</span><span class="tr">${w.ext || ""}</span></div></td></tr>`; }).join("")
-    || `<tr><td colspan="4" class="tip">Nothing found.</td></tr>`;
+    || `<tr><td colspan="3" class="tip">Nothing found.</td></tr>`;
 }
 
 // ---------------- flashcards ----------------
 let decks = [], deckIdx = 0, dirMode = "de", queue = [], cur = null, known = 0, total = 0;
 function buildFlash() {
-  decks = [{ name: "Wörter", cards: L.words.map(w => ({ a: w.de, b: `${w.en}<br><small>${w.cz}</small>`, hint: w.g || "" })) },
+  decks = [{ name: "Wörter", cards: L.words.map(w => ({ a: w.de, b: w.en, hint: w.g || "" })) },
            ...(L.decks || [])];
   deckIdx = 0; dirMode = "de";
   $("sec-flash").innerHTML = `
     <h2>Karteikarten – ${L.title}</h2>
     <div class="flash">
       <div class="seg" id="deck">${decks.map((d, i) => `<button data-i="${i}" class="${i ? "" : "on"}">${d.name}</button>`).join("")}</div>
-      <div class="seg" id="dir"><button data-r="de" class="on">DE → EN/CZ</button><button data-r="en">EN/CZ → DE</button></div>
+      <div class="seg" id="dir"><button data-r="de" class="on">DE → EN</button><button data-r="en">EN → DE</button></div>
       <div class="fc" id="card" title="Click to flip">
         <div class="big" id="fFront"></div><div class="small" id="fHint"></div><div class="ans" id="fBack" hidden></div>
       </div>
@@ -282,7 +282,7 @@ function buildExercises() {
   const pts = L.exercises.reduce((s, sec) => s + sec.items.length, 0);
   let last = null; try { last = JSON.parse(store.get("dl-res-" + L.id)); } catch (e) {}
   $("sec-ueb").innerHTML = `
-    <h2>${L.review ? "Souhrnný test" : "Übungen"} – ${L.title} (${pts} Punkte)</h2>
+    <h2>${L.review ? "Final test" : "Übungen"} – ${L.title} (${pts} Punkte)</h2>
     <p class="tip">Fill everything in, then press <b>Check</b>${L.review ? " – you'll get a final evaluation with your grade, results per topic and a list of mistakes" : ""}.
       Typing tip: you can write ae / oe / ue / ss instead of ä / ö / ü / ß. Capital letters don't matter.
       ${last ? `<br>Last result: <b>${last.pts} / ${last.total} (${last.pct} %)</b> · best: <b>${last.best} %</b> · ${last.date}` : ""}</p>
@@ -377,18 +377,18 @@ function checkExercises() {
   // remember result
   let prev = null; try { prev = JSON.parse(store.get("dl-res-" + L.id)); } catch (e) {}
   store.set("dl-res-" + L.id, JSON.stringify({ pts, total, pct, best: Math.max(pct, prev ? prev.best : 0),
-    date: new Date().toLocaleDateString("cs-CZ") }));
+    date: new Date().toLocaleDateString("en-GB") }));
 
   renderReport(pts, total, pct, g);
   $("exReport").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function gradeOf(pct) {
-  return pct >= 90 ? { n: 1, cz: "výborně", de: "Sehr gut! 🎉" }
-       : pct >= 75 ? { n: 2, cz: "chvalitebně", de: "Gut! 👍" }
-       : pct >= 60 ? { n: 3, cz: "dobře", de: "Befriedigend" }
-       : pct >= 45 ? { n: 4, cz: "dostatečně", de: "Ausreichend – review the mistakes" }
-       :             { n: 5, cz: "nedostatečně", de: "Repeat the grammar tabs and try again" };
+  return pct >= 90 ? { n: 1, en: "excellent", de: "Sehr gut! 🎉" }
+       : pct >= 75 ? { n: 2, en: "good", de: "Gut! 👍" }
+       : pct >= 60 ? { n: 3, en: "satisfactory", de: "Befriedigend" }
+       : pct >= 45 ? { n: 4, en: "sufficient", de: "Ausreichend – review the mistakes" }
+       :             { n: 5, en: "insufficient", de: "Repeat the grammar tabs and try again" };
 }
 
 const stripHtml = s => { const d = document.createElement("div"); d.innerHTML = s; return d.textContent.trim(); };
@@ -412,30 +412,30 @@ function renderReport(pts, total, pct, g) {
 
   $("exReport").innerHTML = `
     <div class="card report">
-      <h2 style="margin-top:0">📊 Závěrečné vyhodnocení</h2>
-      <div class="big">${pts} / ${total} bodů · ${pct} %</div>
-      <p style="margin:4px 0 10px">Známka: <b>${g.n} – ${g.cz}</b> · <i>${g.de}</i>
-        ${unanswered ? `<br><span class="tip">Nevyplněno: ${unanswered} úloh (počítají se jako chyba).</span>` : ""}</p>
+      <h2 style="margin-top:0">📊 Final evaluation</h2>
+      <div class="big">${pts} / ${total} points · ${pct} %</div>
+      <p style="margin:4px 0 10px">Grade: <b>${g.n} – ${g.en}</b> · <i>${g.de}</i>
+        ${unanswered ? `<br><span class="tip">Unanswered: ${unanswered} (counted as mistakes).</span>` : ""}</p>
       <div class="bar" style="height:14px"><span class="${barCls(pct)}" style="width:${pct}%"></span></div>
 
-      <h3>Výsledky podle témat</h3>
+      <h3>Results by topic</h3>
       <div class="tablewrap"><table>
-        <thead><tr><th>Téma</th><th>Body</th><th style="width:35%">Úspěšnost</th></tr></thead>
+        <thead><tr><th>Topic</th><th>Points</th><th style="width:35%">Score</th></tr></thead>
         <tbody>${secs.map(s => `<tr>
           <td>${s.sec.tag ? `<span class="badge">${s.sec.tag}</span>` : ""}${s.sec.title}</td>
           <td class="n">${s.ok} / ${s.n}</td>
           <td><div class="bar"><span class="${barCls(s.p)}" style="width:${s.p}%"></span></div></td></tr>`).join("")}</tbody>
       </table></div>
 
-      ${links.length ? `<h3>Co zopakovat</h3>
-        <p class="tip" style="margin-top:0">Témata pod 80 % – klikni a otevře se příslušná kapitola:</p>
+      ${links.length ? `<h3>What to review</h3>
+        <p class="tip" style="margin-top:0">Topics under 80 % – click to open the matching chapter:</p>
         <div class="controls" style="justify-content:flex-start">${links.map(([id, tab]) =>
           `<button class="btn" data-l="${id}" data-t="${tab}">${lessonTitle(id)} · ${tabName(id, tab)}</button>`).join("")}</div>`
-        : `<p><b>Všechna témata nad 80 % – výborně, můžeš pokračovat dál! 🎉</b></p>`}
+        : `<p><b>All topics above 80 % – excellent, you can move on! 🎉</b></p>`}
 
-      ${mistakes.length ? `<h3>Chyby (${mistakes.length})</h3>
+      ${mistakes.length ? `<h3>Mistakes (${mistakes.length})</h3>
         <div class="tablewrap"><table class="mist">
-          <thead><tr><th>#</th><th>Úloha</th><th>Tvoje odpověď</th><th>Správně</th></tr></thead>
+          <thead><tr><th>#</th><th>Task</th><th>Your answer</th><th>Correct</th></tr></thead>
           <tbody>${mistakes.map(st => {
             const yours = st.it.t === "order" ? st.val.join(" ") : st.val;
             return `<tr><td class="n">${st.n}.</td><td>${stripHtml(st.it.q).replace(/___/g, "…")}</td>

@@ -2,8 +2,8 @@
 // LEKTION 2 – Auf dem Bild · so … wie · Familie · Possessivartikel im Dativ
 // =====================================================================
 (function () {
-  const MATCH_R = ["to take place / konat se", "distant, away / vzdálený", "crazy / šílený, bláznivý",
-    "to blow / foukat", "secret / tajný", "to be missing / chybět"];
+  const MATCH_R = ["to take place", "distant, away", "crazy",
+    "to blow", "secret", "to be missing"];
 
   // [Nominativ-Phrase with hint, Dativ answer] for the flashcard deck
   const POSS = [
@@ -18,6 +18,9 @@
   ];
 
   const FAM = "👨‍👩‍👧 Familie";
+  const NEW = "🆕 Neue Wörter";
+  const MATCH_N = ["untidy, messy", "trousers", "to lie (tell lies)", "monument", "dangerous",
+    "weak", "terrible, awful", "basket"];
 
   window.LESSONS = window.LESSONS || [];
   window.LESSONS.push({
@@ -27,122 +30,149 @@
 
     // ---------- Wörterbuch ----------
     words: [
-      { grp: "📍 Wortschatz der Lektion", de: "stattfinden", g: "findet statt, fand statt, hat stattgefunden · separable", en: "to take place, to happen", cz: "konat se, uskutečnit se",
+      { grp: "📍 Wortschatz der Lektion", de: "stattfinden", g: "findet statt, fand statt, hat stattgefunden · separable", en: "to take place, to happen",
         ex: "Das Konzert findet am Samstag statt.", ext: "The concert takes place on Saturday." },
-      { grp: "📍 Wortschatz der Lektion", de: "entfernt", g: "adj. · (weit) entfernt von + Dat.", en: "distant, away", cz: "vzdálený",
+      { grp: "📍 Wortschatz der Lektion", de: "entfernt", g: "adj. · (weit) entfernt von + Dat.", en: "distant, away",
         ex: "Brünn ist 200 Kilometer von Prag entfernt.", ext: "Brno is 200 km away from Prague." },
-      { grp: "📍 Wortschatz der Lektion", de: "verrückt", g: "adj. · verrückt nach + Dat.", en: "crazy, mad", cz: "šílený, bláznivý",
+      { grp: "📍 Wortschatz der Lektion", de: "verrückt", g: "adj. · verrückt nach + Dat.", en: "crazy, mad",
         ex: "Mein Bruder ist verrückt nach Fußball.", ext: "My brother is crazy about football." },
-      { grp: "📍 Wortschatz der Lektion", de: "pusten", g: "pustet, pustete, hat gepustet · auspusten", en: "to blow", cz: "foukat",
+      { grp: "📍 Wortschatz der Lektion", de: "pusten", g: "pustet, pustete, hat gepustet · auspusten", en: "to blow",
         ex: "Das Kind pustet die Kerzen aus.", ext: "The child blows out the candles." },
-      { grp: "📍 Wortschatz der Lektion", de: "der Raum", g: "-(e)s, die Räume", en: "room; space", cz: "místnost; prostor",
+      { grp: "📍 Wortschatz der Lektion", de: "der Raum", g: "-(e)s, die Räume", en: "room; space",
         ex: "Der Kurs findet in Raum 12 statt.", ext: "The course takes place in room 12." },
-      { grp: "📍 Wortschatz der Lektion", de: "daneben", g: "adv. (= neben + es/das)", en: "next to it, beside it", cz: "vedle (toho)",
+      { grp: "📍 Wortschatz der Lektion", de: "daneben", g: "adv. (= neben + es/das)", en: "next to it, beside it",
         ex: "In der Mitte ist ein Haus. Daneben steht ein Baum.", ext: "In the middle there's a house. Next to it is a tree." },
-      { grp: "📍 Wortschatz der Lektion", de: "da vorn", g: "adv. · also: da vorne", en: "over there at the front", cz: "tam vepředu",
+      { grp: "📍 Wortschatz der Lektion", de: "da vorn", g: "adv. · also: da vorne", en: "over there at the front",
         ex: "Da vorn ist die Bushaltestelle.", ext: "The bus stop is over there in front." },
-      { grp: "📍 Wortschatz der Lektion", de: "da hinten", g: "adv.", en: "over there at the back", cz: "tam vzadu",
+      { grp: "📍 Wortschatz der Lektion", de: "da hinten", g: "adv.", en: "over there at the back",
         ex: "Da hinten sitzt meine Schwester.", ext: "My sister is sitting over there at the back." },
-      { grp: "📍 Wortschatz der Lektion", de: "oben", g: "adv. ↔ unten", en: "above, at the top; upstairs", cz: "nahoře",
+      { grp: "📍 Wortschatz der Lektion", de: "oben", g: "adv. ↔ unten", en: "above, at the top; upstairs",
         ex: "Oben links ist die Sonne.", ext: "At the top left is the sun." },
-      { grp: "📍 Wortschatz der Lektion", de: "unten", g: "adv. ↔ oben", en: "below, at the bottom; downstairs", cz: "dole",
+      { grp: "📍 Wortschatz der Lektion", de: "unten", g: "adv. ↔ oben", en: "below, at the bottom; downstairs",
         ex: "Unten rechts sitzt ein Hund.", ext: "At the bottom right sits a dog." },
-      { grp: "📍 Wortschatz der Lektion", de: "vorn", g: "adv. ↔ hinten · also: vorne", en: "at the front", cz: "vpředu",
+      { grp: "📍 Wortschatz der Lektion", de: "vorn", g: "adv. ↔ hinten · also: vorne", en: "at the front",
         ex: "Der Lehrer steht vorn an der Tafel.", ext: "The teacher stands at the front by the board." },
-      { grp: "📍 Wortschatz der Lektion", de: "hinten", g: "adv. ↔ vorn", en: "at the back", cz: "vzadu",
+      { grp: "📍 Wortschatz der Lektion", de: "hinten", g: "adv. ↔ vorn", en: "at the back",
         ex: "Im Bus sitze ich immer hinten.", ext: "On the bus I always sit at the back." },
-      { grp: "📍 Wortschatz der Lektion", de: "links", g: "adv. · links von + Dat.", en: "on the left", cz: "vlevo, nalevo",
+      { grp: "📍 Wortschatz der Lektion", de: "links", g: "adv. · links von + Dat.", en: "on the left",
         ex: "Links von meinem Vater steht meine Mutter.", ext: "To the left of my father stands my mother." },
-      { grp: "📍 Wortschatz der Lektion", de: "rechts", g: "adv. · rechts von + Dat.", en: "on the right", cz: "vpravo, napravo",
+      { grp: "📍 Wortschatz der Lektion", de: "rechts", g: "adv. · rechts von + Dat.", en: "on the right",
         ex: "Die Bank ist rechts.", ext: "The bank is on the right." },
-      { grp: "📍 Wortschatz der Lektion", de: "in der Mitte", g: "die Mitte", en: "in the middle", cz: "uprostřed",
+      { grp: "📍 Wortschatz der Lektion", de: "in der Mitte", g: "die Mitte", en: "in the middle",
         ex: "In der Mitte sitzt meine Oma.", ext: "My grandma is sitting in the middle." },
-      { grp: "📍 Wortschatz der Lektion", de: "auf dem Bild", g: "das Bild, -er · auf + Dat.", en: "in the picture", cz: "na obrázku",
+      { grp: "📍 Wortschatz der Lektion", de: "auf dem Bild", g: "das Bild, -er · auf + Dat.", en: "in the picture",
         ex: "Auf dem Bild sieht man meine Familie.", ext: "In the picture you can see my family. (German says AUF, not in!)" },
-      { grp: "📍 Wortschatz der Lektion", de: "fehlen", g: "fehlt, fehlte, hat gefehlt · jdm. fehlen (+ Dat.)", en: "to be missing; to miss (sb.)", cz: "chybět",
+      { grp: "📍 Wortschatz der Lektion", de: "fehlen", g: "fehlt, fehlte, hat gefehlt · jdm. fehlen (+ Dat.)", en: "to be missing; to miss (sb.)",
         ex: "Auf dem Bild fehlt mein Bruder. – Du fehlst mir!", ext: "My brother is missing in the picture. – I miss you! (lit. you are missing to me)" },
-      { grp: "📍 Wortschatz der Lektion", de: "geheim", g: "adj. · das Geheimnis, -se", en: "secret", cz: "tajný",
+      { grp: "📍 Wortschatz der Lektion", de: "geheim", g: "adj. · das Geheimnis, -se", en: "secret",
         ex: "Das ist geheim! Sag es niemandem.", ext: "That's secret! Don't tell anyone." },
 
+      // ----- Neue Wörter -----
+      { grp: NEW, de: "unordentlich", g: "adj. ↔ ordentlich · die Unordnung", en: "untidy, messy",
+        ex: "Das Zimmer von meinem Sohn ist furchtbar unordentlich.", ext: "My son's room is terribly messy." },
+      { grp: NEW, de: "die Hose", g: "-, die Hosen", en: "trousers, pants", ex: "Die Hose ist zu lang.",
+        ext: "The trousers are too long. (German: eine Hose = one pair – singular!)" },
+      { grp: NEW, de: "lügen", g: "lügt, log, hat gelogen · die Lüge, -n", en: "to lie, to tell a lie",
+        ex: "Du lügst! – Nein, ich lüge nie.", ext: "You're lying! – No, I never lie." },
+      { grp: NEW, de: "das Geschenk", g: "-(e)s, die Geschenke · schenken", en: "present, gift",
+        ex: "Die Geschenke liegen auf dem Tisch.", ext: "The presents are on the table." },
+      { grp: NEW, de: "die Bushaltestelle", g: "-, die Bushaltestellen · die Haltestelle", en: "bus stop",
+        ex: "Die Bushaltestelle ist da vorn, neben dem Denkmal.", ext: "The bus stop is over there, next to the monument." },
+      { grp: NEW, de: "das Denkmal", g: "-s, die Denkmäler", en: "monument, memorial",
+        ex: "In der Mitte vom Platz steht ein Denkmal.", ext: "In the middle of the square there is a monument." },
+      { grp: NEW, de: "gefährlich", g: "adj. · die Gefahr, -en", en: "dangerous",
+        ex: "Diese Straße ist sehr gefährlich.", ext: "This street is very dangerous." },
+      { grp: NEW, de: "schwach", g: "adj. · schwächer, am schwächsten ↔ stark", en: "weak",
+        ex: "Nach der Grippe bin ich noch schwach.", ext: "After the flu I'm still weak." },
+      { grp: NEW, de: "furchtbar", g: "adj. / adv. · = schrecklich", en: "terrible, awful; terribly",
+        ex: "Das Wetter ist furchtbar. – Ich bin furchtbar müde.", ext: "The weather is awful. – I'm terribly tired." },
+      { grp: NEW, de: "der Korb", g: "-(e)s, die Körbe", en: "basket",
+        ex: "Im Korb sind Äpfel und Brot.", ext: "There are apples and bread in the basket." },
+      { grp: NEW, de: "Bescheid sagen", g: "jdm. (Dat.) Bescheid sagen / geben · Bescheid wissen", en: "to let sb. know / to know about",
+        ex: "Sag mir bitte Bescheid, wann die Party stattfindet.", ext: "Please let me know when the party takes place." },
+
       // ----- Familie -----
-      { grp: FAM, de: "die Familie", g: "-, die Familien", en: "family", cz: "rodina",
+      { grp: FAM, de: "die Familie", g: "-, die Familien", en: "family",
         ex: "Meine Familie ist groß.", ext: "My family is big." },
-      { grp: FAM, de: "die Eltern", g: "Pl. only", en: "parents", cz: "rodiče",
+      { grp: FAM, de: "die Eltern", g: "Pl. only", en: "parents",
         ex: "Ich wohne bei meinen Eltern.", ext: "I live with my parents." },
-      { grp: FAM, de: "der Vater", g: "-s, die Väter · der Papa", en: "father", cz: "otec, táta",
+      { grp: FAM, de: "der Vater", g: "-s, die Väter · der Papa", en: "father",
         ex: "Mein Vater ist Ingenieur.", ext: "My father is an engineer." },
-      { grp: FAM, de: "die Mutter", g: "-, die Mütter · die Mama", en: "mother", cz: "matka, máma",
+      { grp: FAM, de: "die Mutter", g: "-, die Mütter · die Mama", en: "mother",
         ex: "Ich telefoniere oft mit meiner Mutter.", ext: "I often phone my mother." },
-      { grp: FAM, de: "das Kind", g: "-(e)s, die Kinder", en: "child", cz: "dítě",
+      { grp: FAM, de: "das Kind", g: "-(e)s, die Kinder", en: "child",
         ex: "Wir haben zwei Kinder.", ext: "We have two children." },
-      { grp: FAM, de: "der Sohn", g: "-(e)s, die Söhne", en: "son", cz: "syn",
+      { grp: FAM, de: "der Sohn", g: "-(e)s, die Söhne", en: "son",
         ex: "Mein Sohn ist fünf Jahre alt.", ext: "My son is five years old." },
-      { grp: FAM, de: "die Tochter", g: "-, die Töchter", en: "daughter", cz: "dcera",
+      { grp: FAM, de: "die Tochter", g: "-, die Töchter", en: "daughter",
         ex: "Ihre Tochter studiert in Wien.", ext: "Her daughter studies in Vienna." },
-      { grp: FAM, de: "die Geschwister", g: "Pl. only", en: "siblings", cz: "sourozenci",
+      { grp: FAM, de: "die Geschwister", g: "Pl. only", en: "siblings",
         ex: "Hast du Geschwister? – Nein, ich bin Einzelkind.", ext: "Do you have siblings? – No, I'm an only child." },
-      { grp: FAM, de: "der Bruder", g: "-s, die Brüder", en: "brother", cz: "bratr",
+      { grp: FAM, de: "der Bruder", g: "-s, die Brüder", en: "brother",
         ex: "Mein Bruder ist älter als ich.", ext: "My brother is older than me." },
-      { grp: FAM, de: "die Schwester", g: "-, die Schwestern", en: "sister", cz: "sestra",
+      { grp: FAM, de: "die Schwester", g: "-, die Schwestern", en: "sister",
         ex: "Meine Schwester ist so groß wie ich.", ext: "My sister is as tall as me." },
-      { grp: FAM, de: "die Zwillinge", g: "Pl. · der Zwilling, -e", en: "twins", cz: "dvojčata",
+      { grp: FAM, de: "die Zwillinge", g: "Pl. · der Zwilling, -e", en: "twins",
         ex: "Meine Cousinen sind Zwillinge.", ext: "My (female) cousins are twins." },
-      { grp: FAM, de: "die Großeltern", g: "Pl. only", en: "grandparents", cz: "prarodiče",
+      { grp: FAM, de: "die Großeltern", g: "Pl. only", en: "grandparents",
         ex: "Am Sonntag fahren wir zu unseren Großeltern.", ext: "On Sunday we're going to our grandparents'." },
-      { grp: FAM, de: "der Großvater", g: "-s, die Großväter · der Opa", en: "grandfather, grandpa", cz: "dědeček, děda",
+      { grp: FAM, de: "der Großvater", g: "-s, die Großväter · der Opa", en: "grandfather, grandpa",
         ex: "Mein Opa ist 80 Jahre alt.", ext: "My grandpa is 80." },
-      { grp: FAM, de: "die Großmutter", g: "-, die Großmütter · die Oma", en: "grandmother, grandma", cz: "babička",
+      { grp: FAM, de: "die Großmutter", g: "-, die Großmütter · die Oma", en: "grandmother, grandma",
         ex: "Ich helfe meiner Oma im Garten.", ext: "I help my grandma in the garden." },
-      { grp: FAM, de: "der Enkel", g: "-s, die Enkel · f: die Enkelin, -nen", en: "grandson / granddaughter", cz: "vnuk / vnučka",
+      { grp: FAM, de: "der Enkel", g: "-s, die Enkel · f: die Enkelin, -nen", en: "grandson / granddaughter",
         ex: "Meine Oma hat sechs Enkel.", ext: "My grandma has six grandchildren." },
-      { grp: FAM, de: "das Enkelkind", g: "-(e)s, die Enkelkinder", en: "grandchild", cz: "vnouče",
+      { grp: FAM, de: "das Enkelkind", g: "-(e)s, die Enkelkinder", en: "grandchild",
         ex: "Opa spielt mit seinen Enkelkindern.", ext: "Grandpa plays with his grandchildren." },
-      { grp: FAM, de: "der Urgroßvater", g: "die Urgroßmutter · die Urgroßeltern", en: "great-grandfather / -mother", cz: "pradědeček / prababička",
+      { grp: FAM, de: "der Urgroßvater", g: "die Urgroßmutter · die Urgroßeltern", en: "great-grandfather / -mother",
         ex: "Meine Urgroßmutter ist 95.", ext: "My great-grandmother is 95." },
-      { grp: FAM, de: "der Onkel", g: "-s, die Onkel", en: "uncle", cz: "strýc",
+      { grp: FAM, de: "der Onkel", g: "-s, die Onkel", en: "uncle",
         ex: "Der Bruder von meiner Mutter ist mein Onkel.", ext: "My mother's brother is my uncle." },
-      { grp: FAM, de: "die Tante", g: "-, die Tanten", en: "aunt", cz: "teta",
+      { grp: FAM, de: "die Tante", g: "-, die Tanten", en: "aunt",
         ex: "Meine Tante wohnt weit entfernt.", ext: "My aunt lives far away." },
-      { grp: FAM, de: "der Cousin", g: "-s, die Cousins · f: die Cousine, -n", en: "cousin (m / f)", cz: "bratranec / sestřenice",
+      { grp: FAM, de: "der Cousin", g: "-s, die Cousins · f: die Cousine, -n", en: "cousin (m / f)",
         ex: "Mein Cousin und meine Cousine kommen auch.", ext: "My (male) cousin and (female) cousin are coming too." },
-      { grp: FAM, de: "der Neffe", g: "-n, die Neffen · n-Deklination!", en: "nephew", cz: "synovec",
+      { grp: FAM, de: "der Neffe", g: "-n, die Neffen · n-Deklination!", en: "nephew",
         ex: "Ich gratuliere meinem Neffen.", ext: "I congratulate my nephew. (Dativ: dem Neffen)" },
-      { grp: FAM, de: "die Nichte", g: "-, die Nichten", en: "niece", cz: "neteř",
+      { grp: FAM, de: "die Nichte", g: "-, die Nichten", en: "niece",
         ex: "Meine Nichte pustet die Kerzen aus.", ext: "My niece blows out the candles." },
-      { grp: FAM, de: "der (Ehe)mann", g: "-(e)s, die (Ehe)männer", en: "husband", cz: "manžel",
+      { grp: FAM, de: "der (Ehe)mann", g: "-(e)s, die (Ehe)männer", en: "husband",
         ex: "Das ist mein Mann, Peter.", ext: "This is my husband, Peter." },
-      { grp: FAM, de: "die (Ehe)frau", g: "-, die (Ehe)frauen", en: "wife", cz: "manželka",
+      { grp: FAM, de: "die (Ehe)frau", g: "-, die (Ehe)frauen", en: "wife",
         ex: "Er fährt mit seiner Frau nach Italien.", ext: "He's going to Italy with his wife." },
-      { grp: FAM, de: "der Partner", g: "-s, - · f: die Partnerin, -nen", en: "partner", cz: "partner / partnerka",
+      { grp: FAM, de: "der Partner", g: "-s, - · f: die Partnerin, -nen", en: "partner",
         ex: "Ich wohne mit meiner Partnerin zusammen.", ext: "I live together with my (female) partner." },
-      { grp: FAM, de: "die Schwiegereltern", g: "Pl. · der Schwiegervater / die Schwiegermutter", en: "parents-in-law (father- / mother-in-law)", cz: "tchán a tchyně",
+      { grp: FAM, de: "die Schwiegereltern", g: "Pl. · der Schwiegervater / die Schwiegermutter", en: "parents-in-law (father- / mother-in-law)",
         ex: "Wir besuchen unsere Schwiegereltern.", ext: "We're visiting our parents-in-law." },
-      { grp: FAM, de: "der Schwiegersohn", g: "f: die Schwiegertochter", en: "son-in-law / daughter-in-law", cz: "zeť / snacha",
+      { grp: FAM, de: "der Schwiegersohn", g: "f: die Schwiegertochter", en: "son-in-law / daughter-in-law",
         ex: "Ihr Schwiegersohn kommt aus Polen.", ext: "Her son-in-law is from Poland." },
-      { grp: FAM, de: "der Schwager", g: "-s, die Schwäger · f: die Schwägerin, -nen", en: "brother-in-law / sister-in-law", cz: "švagr / švagrová",
+      { grp: FAM, de: "der Schwager", g: "-s, die Schwäger · f: die Schwägerin, -nen", en: "brother-in-law / sister-in-law",
         ex: "Der Mann von meiner Schwester ist mein Schwager.", ext: "My sister's husband is my brother-in-law." },
-      { grp: FAM, de: "der Stiefvater", g: "f: die Stiefmutter", en: "stepfather / stepmother", cz: "otčím / macecha",
+      { grp: FAM, de: "der Stiefvater", g: "f: die Stiefmutter", en: "stepfather / stepmother",
         ex: "Mein Stiefvater ist sehr nett.", ext: "My stepfather is very nice." },
-      { grp: FAM, de: "der Halbbruder", g: "f: die Halbschwester", en: "half-brother / half-sister", cz: "nevlastní bratr / sestra",
+      { grp: FAM, de: "der Halbbruder", g: "f: die Halbschwester", en: "half-brother / half-sister",
         ex: "Ich habe einen Halbbruder.", ext: "I have a half-brother." },
-      { grp: FAM, de: "das Einzelkind", g: "-(e)s, die Einzelkinder", en: "only child", cz: "jedináček",
+      { grp: FAM, de: "das Einzelkind", g: "-(e)s, die Einzelkinder", en: "only child",
         ex: "Meine Frau ist Einzelkind.", ext: "My wife is an only child." },
-      { grp: FAM, de: "verheiratet", g: "adj. · ledig, geschieden, verwitwet", en: "married (single, divorced, widowed)", cz: "ženatý / vdaná (svobodný, rozvedený, ovdovělý)",
+      { grp: FAM, de: "verheiratet", g: "adj. · ledig, geschieden, verwitwet", en: "married (single, divorced, widowed)",
         ex: "Mein Bruder ist seit zwei Jahren verheiratet.", ext: "My brother has been married for two years." },
     ],
 
     dictExtra: `
       <h3 style="margin-top:0">Wörter mit Tücken (watch out)</h3>
       <p><b>stattfinden</b> is separable: <i>Die Party <mark>findet</mark> bei uns <mark>statt</mark>.</i> · Perfekt: <i>hat stattgefunden</i>.
-        Used only for events (Konzert, Kurs, Party, Hochzeit) – never for people.<br>
-        <span class="tip">CZ: konat se · EN: take place</span></p>
+        Used only for events (Konzert, Kurs, Party, Hochzeit) – never for people.</p>
       <p><b>entfernt</b> – <i>10 km <mark>von</mark> Prag entfernt</i> (10 km away from Prague). <i>weit entfernt</i> = far away.</p>
-      <p><b>verrückt nach</b> + Dat. – <i>Sie ist verrückt nach Schokolade.</i> (crazy about / blázen do)</p>
+      <p><b>verrückt nach</b> + Dat. – <i>Sie ist verrückt nach Schokolade.</i> (crazy about)</p>
       <p><b>pusten</b> → <b>aus</b>pusten (blow out): <i>Puste die Kerzen aus!</i></p>
       <p><b>der Raum</b> = room as a space (Raum 12, Büroraum); <b>das Zimmer</b> = room in a flat (Schlafzimmer).</p>
       <p><b>fehlen</b> + Dativ – the person who misses is in the Dativ:
         <i>Du fehlst <mark>mir</mark>.</i> = I miss you (lit. "you are missing to me"). <i>Mein Bruder fehlt <mark>meiner Mutter</mark>.</i> = My mother misses my brother.</p>
-      <p><b>geheim</b> (adj.) → <b>das Geheimnis</b> (a secret): <i>Das ist mein Geheimnis.</i></p>`,
+      <p><b>geheim</b> (adj.) → <b>das Geheimnis</b> (a secret): <i>Das ist mein Geheimnis.</i></p>
+      <p><b>Bescheid</b> is used in fixed phrases: <i>jdm. <mark>Bescheid sagen / geben</mark></i> = to let sb. know
+        (<i>Sag mir Bescheid!</i>) · <i><mark>Bescheid wissen</mark></i> = to know about it (<i>Weißt du schon Bescheid?</i>).</p>
+      <p><b>die Hose</b> is singular in German: <i>Die Hose <mark>ist</mark> neu.</i> (The trousers <u>are</u> new.)</p>
+      <p><b>lügen</b> is irregular: <i>log, hat gelogen</i>. Don't mix it up with <b>liegen</b> (to lie = be lying down: <i>lag, hat gelegen</i>).</p>`,
 
     // ---------- Grammatik ----------
     grammar: [
@@ -161,7 +191,7 @@
     <div class="card">
       <h3 style="margin-top:0">Depth: vorn ↔ hinten</h3>
       <div class="ex"><span class="de">Vorn sitzen die Kinder, hinten stehen die Eltern.</span>
-        <span class="tr">At the front sit the children, at the back stand the parents. (vpředu / vzadu)</span></div>
+        <span class="tr">At the front sit the children, at the back stand the parents.</span></div>
       <h3>Pointing: da vorn / da hinten</h3>
       <div class="ex"><span class="de">Wo ist dein Bruder? – <mark>Da hinten</mark>, neben dem Fenster.</span>
         <span class="tr">Over there at the back, next to the window.</span></div>
@@ -171,7 +201,7 @@
     </div>
   </div>
   <div class="card">
-    <div class="rule"><b>auf dem Bild</b> = in the picture / na obrázku. German uses <b>auf</b> (not <i>in</i>) + Dativ.</div>
+    <div class="rule"><b>auf dem Bild</b> = in the picture. German uses <b>auf</b> (not <i>in</i>) + Dativ.</div>
     <h3>Describing a picture – useful phrases</h3>
     <div class="ex"><span class="de">Auf dem Bild sieht man meine Familie.</span><span class="tr">In the picture you can see my family.</span></div>
     <div class="ex"><span class="de">Oben links ist die Sonne. In der Mitte steht ein Haus.</span><span class="tr">Top left is the sun. In the middle there's a house.</span></div>
@@ -198,12 +228,12 @@
   </div>` },
 
       { id: "sowie", tab: "⚖️ so … wie", html: `
-  <h2>Vergleich: so … wie (as … as / stejně … jako)</h2>
+  <h2>Vergleich: so … wie (as … as)</h2>
   <div class="card">
     <div class="rule"><b>Equal</b> → <b>so</b> + adjective in its <b>basic form</b> + <b>wie</b>.</div>
     <div class="formula">so + <span class="v">Grundform</span> + wie</div>
     <div class="ex"><span class="de">Meine Schwester ist <mark>so groß wie</mark> mein Vater.</span>
-      <span class="tr">My sister is as tall as my father. (stejně vysoká jako)</span></div>
+      <span class="tr">My sister is as tall as my father.</span></div>
     <div class="ex"><span class="de">Prag ist <mark>so schön wie</mark> Wien.</span>
       <span class="tr">Prague is as beautiful as Vienna.</span></div>
   </div>
@@ -217,7 +247,7 @@
     </div>
     <div class="card">
       <h3 style="margin-top:0">Stronger / weaker</h3>
-      <div class="ex"><span class="de"><mark>genauso</mark> … wie</span><span class="tr">just as … as (přesně tak … jako)</span></div>
+      <div class="ex"><span class="de"><mark>genauso</mark> … wie</span><span class="tr">just as … as</span></div>
       <div class="ex"><span class="de"><mark>fast so</mark> … wie</span><span class="tr">almost as … as</span></div>
       <div class="ex"><span class="de"><mark>doppelt so</mark> … wie</span><span class="tr">twice as … as</span></div>
       <div class="ex"><span class="de">Mein Bruder ist genauso alt wie mein Cousin.</span></div>
@@ -252,22 +282,22 @@
     <table>
       <thead><tr><th>Generation</th><th>♂ männlich</th><th>♀ weiblich</th><th>Plural / both</th></tr></thead>
       <tbody>
-        <tr><td>+3</td><td>der Urgroßvater</td><td>die Urgroßmutter</td><td>die Urgroßeltern <small>(praprarodiče)</small></td></tr>
-        <tr><td>+2</td><td>der Großvater · Opa</td><td>die Großmutter · Oma</td><td>die Großeltern <small>(prarodiče)</small></td></tr>
-        <tr><td>+1</td><td>der Vater · Papa</td><td>die Mutter · Mama</td><td>die Eltern <small>(rodiče)</small></td></tr>
+        <tr><td>+3</td><td>der Urgroßvater</td><td>die Urgroßmutter</td><td>die Urgroßeltern</td></tr>
+        <tr><td>+2</td><td>der Großvater · Opa</td><td>die Großmutter · Oma</td><td>die Großeltern</td></tr>
+        <tr><td>+1</td><td>der Vater · Papa</td><td>die Mutter · Mama</td><td>die Eltern</td></tr>
         <tr><td>+1</td><td>der Onkel</td><td>die Tante</td><td>–</td></tr>
-        <tr><td>+1</td><td>der Schwiegervater</td><td>die Schwiegermutter</td><td>die Schwiegereltern <small>(tchán a tchyně)</small></td></tr>
-        <tr><td>+1</td><td>der Stiefvater</td><td>die Stiefmutter</td><td><small>(otčím / macecha)</small></td></tr>
-        <tr><td><b>0</b></td><td>der Bruder</td><td>die Schwester</td><td>die Geschwister <small>(sourozenci)</small></td></tr>
-        <tr><td>0</td><td>der Halbbruder</td><td>die Halbschwester</td><td><small>(nevlastní sourozenci)</small></td></tr>
-        <tr><td>0</td><td>der Cousin</td><td>die Cousine</td><td>die Cousins / Cousinen <small>(bratranec / sestřenice)</small></td></tr>
-        <tr><td>0</td><td>der (Ehe)mann</td><td>die (Ehe)frau</td><td>das Ehepaar <small>(manželé)</small></td></tr>
-        <tr><td>0</td><td>der Schwager</td><td>die Schwägerin</td><td><small>(švagr / švagrová)</small></td></tr>
-        <tr><td>0</td><td>der Partner · Freund</td><td>die Partnerin · Freundin</td><td><small>(partner, přítel / přítelkyně)</small></td></tr>
-        <tr><td>−1</td><td>der Sohn</td><td>die Tochter</td><td>die Kinder <small>(děti)</small></td></tr>
-        <tr><td>−1</td><td>der Neffe</td><td>die Nichte</td><td><small>(synovec / neteř)</small></td></tr>
-        <tr><td>−1</td><td>der Schwiegersohn</td><td>die Schwiegertochter</td><td><small>(zeť / snacha)</small></td></tr>
-        <tr><td>−2</td><td>der Enkel</td><td>die Enkelin</td><td>die Enkel · Enkelkinder <small>(vnoučata)</small></td></tr>
+        <tr><td>+1</td><td>der Schwiegervater</td><td>die Schwiegermutter</td><td>die Schwiegereltern</td></tr>
+        <tr><td>+1</td><td>der Stiefvater</td><td>die Stiefmutter</td><td>–</td></tr>
+        <tr><td><b>0</b></td><td>der Bruder</td><td>die Schwester</td><td>die Geschwister</td></tr>
+        <tr><td>0</td><td>der Halbbruder</td><td>die Halbschwester</td><td>–</td></tr>
+        <tr><td>0</td><td>der Cousin</td><td>die Cousine</td><td>die Cousins / Cousinen</td></tr>
+        <tr><td>0</td><td>der (Ehe)mann</td><td>die (Ehe)frau</td><td>das Ehepaar</td></tr>
+        <tr><td>0</td><td>der Schwager</td><td>die Schwägerin</td><td>–</td></tr>
+        <tr><td>0</td><td>der Partner · Freund</td><td>die Partnerin · Freundin</td><td>–</td></tr>
+        <tr><td>−1</td><td>der Sohn</td><td>die Tochter</td><td>die Kinder</td></tr>
+        <tr><td>−1</td><td>der Neffe</td><td>die Nichte</td><td>–</td></tr>
+        <tr><td>−1</td><td>der Schwiegersohn</td><td>die Schwiegertochter</td><td>–</td></tr>
+        <tr><td>−2</td><td>der Enkel</td><td>die Enkelin</td><td>die Enkel · Enkelkinder</td></tr>
       </tbody>
     </table>
   </div>
@@ -289,7 +319,7 @@
   </div>` },
 
       { id: "possdat", tab: "🎁 Possessiv – Dativ", html: `
-  <h2>Possessivartikel im Dativ (3. pád přivlastňovacích zájmen)</h2>
+  <h2>Possessivartikel im Dativ</h2>
   <div class="card">
     <div class="rule">In the Dativ, <b>mein, dein, sein …</b> take the same endings as the definite article <b>dem / der / dem / den</b>.</div>
     <div class="tablewrap"><table>
@@ -436,7 +466,7 @@
         { t: "gap", q: "Das Haus gehört ___ Onkel. <span class='tip'>(unser)</span>", a: ["unserem"] },
         { t: "gap", q: "Mein Bruder fehlt ___ Mutter. <span class='tip'>(mein)</span>", a: ["meiner"] },
         { t: "gap", q: "Opa spielt mit ___ Enkelkindern. <span class='tip'>(sein)</span>", a: ["seinen"] },
-        { t: "gap", q: "Wie geht es ___ Frau, Herr Novák? <span class='tip'>(Ihr)</span>", a: ["Ihrer"] },
+        { t: "gap", q: "Wie geht es ___ Frau, Herr Müller? <span class='tip'>(Ihr)</span>", a: ["Ihrer"] },
         { t: "gap", q: "Ich gratuliere ___ Neffen. <span class='tip'>(mein)</span>", a: ["meinem"] },
       ]},
       { title: "H · Nominativ, Akkusativ oder Dativ?", desc: "Choose the correct form.", items: [
@@ -461,11 +491,33 @@
         { t: "order", q: "My niece blows out the candles.", w: ["Meine Nichte", "pustet", "die Kerzen", "aus"],
           a: ["Meine Nichte pustet die Kerzen aus"] },
       ]},
+      { title: "J · Neue Wörter – Bedeutung", desc: "Choose the right meaning.", items: [
+        { t: "sel", q: "unordentlich", opts: MATCH_N, a: MATCH_N[0] },
+        { t: "sel", q: "die Hose", opts: MATCH_N, a: MATCH_N[1] },
+        { t: "sel", q: "lügen", opts: MATCH_N, a: MATCH_N[2] },
+        { t: "sel", q: "das Denkmal", opts: MATCH_N, a: MATCH_N[3] },
+        { t: "sel", q: "gefährlich", opts: MATCH_N, a: MATCH_N[4] },
+        { t: "sel", q: "schwach", opts: MATCH_N, a: MATCH_N[5] },
+        { t: "sel", q: "furchtbar", opts: MATCH_N, a: MATCH_N[6] },
+        { t: "sel", q: "der Korb", opts: MATCH_N, a: MATCH_N[7] },
+      ]},
+      { title: "K · Neue Wörter – Lücken", desc: "Write the missing word.", items: [
+        { t: "gap", q: "Wo ist die nächste ___? Ich möchte mit dem Bus fahren. <span class='tip'>(bus stop)</span>", a: ["Bushaltestelle", "Haltestelle"] },
+        { t: "gap", q: "Zum Geburtstag hat Oma viele ___ bekommen. <span class='tip'>(presents)</span>", a: ["Geschenke"] },
+        { t: "gap", q: "Sag mir bitte ___, wann du kommst. <span class='tip'>(let me know)</span>", a: ["Bescheid"] },
+        { t: "gap", q: "Mein Zimmer ist ___. Ich muss aufräumen. <span class='tip'>(messy)</span>", a: ["unordentlich"] },
+        { t: "gap", q: "Das ist nicht wahr! Du ___! <span class='tip'>(lügen)</span>", a: ["lügst"] },
+        { t: "gap", q: "Er hat ___ – das war eine Lüge. <span class='tip'>(lügen, Perfekt)</span>", a: ["gelogen"] },
+        { t: "mc", q: "Die neue Hose ___ zu kurz.", opts: ["ist", "sind"], a: "ist" },
+        { t: "mc", q: "Mein Opa ist nicht mehr so stark. Er ist ___.", opts: ["schwach", "gefährlich", "unordentlich"], a: "schwach" },
+        { t: "mc", q: "Im ___ sind Äpfel und Brot.", opts: ["Korb", "Denkmal", "Hose"], a: "Korb" },
+        { t: "mc", q: "Fahr nicht so schnell, das ist ___!", opts: ["gefährlich", "schwach", "geheim"], a: "gefährlich" },
+      ]},
     ],
   });
 
   // Familie deck = all family words from the dictionary
   const les = window.LESSONS[window.LESSONS.length - 1];
   les.decks[0].cards = les.words.filter(w => w.grp === FAM)
-    .map(w => ({ a: w.de, b: `${w.en}<br><small>${w.cz}</small>`, hint: w.g || "" }));
+    .map(w => ({ a: w.de, b: w.en, hint: w.g || "" }));
 })();

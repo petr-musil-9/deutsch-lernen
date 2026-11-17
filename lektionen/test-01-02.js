@@ -1,15 +1,15 @@
 // =====================================================================
-// SOUHRNNÝ TEST – Lektion 1 + 2 (100 Punkte)
+// FINAL TEST – Lektion 1 + 2 (100 Punkte)
 // Shown as its own button ("Test L1+L2") next to the lessons.
 // review: true → only the test tab is shown, with a final evaluation.
 // ref: [lessonId, tabId] → "review this" link in the evaluation.
 // =====================================================================
 (function () {
-  const M1 = ["inhabitant / obyvatel", "workshop, garage / dílna, autoservis", "famous / slavný",
-    "various, different / různý", "to sell / prodávat", "second largest / druhý největší"];
-  const M2 = ["to take place / konat se", "distant, away / vzdálený", "crazy / šílený, bláznivý",
-    "to blow / foukat", "room, space / místnost, prostor", "secret / tajný",
-    "to be missing / chybět", "next to it / vedle (toho)"];
+  const M1 = ["inhabitant", "workshop, garage", "famous",
+    "various, different", "to sell", "second largest"];
+  const M2 = ["to take place", "distant, away", "crazy",
+    "to blow", "room, space", "secret",
+    "to be missing", "next to it"];
   const ART = ["der", "die", "das"];
   const TF = ["richtig ✓", "falsch ✗"];
   const hint = s => ` <span class='tip'>(${s})</span>`;
@@ -19,7 +19,7 @@
     id: 99,
     review: true,
     title: "Test L1+L2",
-    topic: "Souhrnný test · 100 Punkte · Wortschatz, Himmelsrichtungen, Familie, Auf dem Bild, weil, Komparativ, so … wie, Perfekt, Possessiv im Dativ",
+    topic: "Final test · 100 Punkte · Wortschatz, Himmelsrichtungen, Familie, Auf dem Bild, weil, Komparativ, so … wie, Perfekt, Possessiv im Dativ",
     words: [], grammar: [],
 
     exercises: [
@@ -33,19 +33,19 @@
         { t: "sel", q: "zweitgrößte", opts: M1, a: M1[5] },
       ]},
       { tag: "L1", ref: [1, "dict"], title: "B · Himmelsrichtungen", desc: "Where is the city? Choose or write.", items: [
-        { t: "mc", q: "Hamburg und Kiel liegen ___ von Deutschland." + hint("sever"),
+        { t: "mc", q: "Hamburg und Kiel liegen ___ von Deutschland." + hint("north"),
           opts: ["im Norden", "im Süden", "im Osten", "im Westen"], a: "im Norden" },
-        { t: "mc", q: "München liegt ___ von Deutschland." + hint("jih"),
+        { t: "mc", q: "München liegt ___ von Deutschland." + hint("south"),
           opts: ["im Norden", "im Süden", "im Osten", "im Westen"], a: "im Süden" },
-        { t: "gap", q: "Dresden liegt im ___ von Deutschland." + hint("východ"), a: ["Osten"] },
-        { t: "gap", q: "Köln liegt ___ von Deutschland." + hint("na západě – 2 words"), a: ["im Westen"] },
+        { t: "gap", q: "Dresden liegt im ___ von Deutschland." + hint("east"), a: ["Osten"] },
+        { t: "gap", q: "Köln liegt ___ von Deutschland." + hint("in the west – 2 words"), a: ["im Westen"] },
       ]},
       { tag: "L1", ref: [1, "dict"], title: "C · Wortschatz L1 – Lücken", desc: "Write the missing word.", items: [
-        { t: "gap", q: "Ich fahre jeden Tag mit dem ___ zur Arbeit." + hint("kolo"), a: ["Rad", "Fahrrad"] },
-        { t: "gap", q: "Prag hat 1,3 Millionen ___." + hint("obyvatelé"), a: ["Einwohner"] },
-        { t: "gap", q: "Mein Auto ist kaputt, es ist in der ___." + hint("autoservis"), a: ["Werkstatt"] },
-        { t: "gap", q: "Im ___ spreche ich oft Englisch." + hint("v práci"), a: ["Beruf"] },
-        { t: "gap", q: "Wir verkaufen ___ Räder: Stadträder, Kinderräder und E-Bikes." + hint("různá"), a: ["verschiedene"] },
+        { t: "gap", q: "Ich fahre jeden Tag mit dem ___ zur Arbeit." + hint("bike"), a: ["Rad", "Fahrrad"] },
+        { t: "gap", q: "Prag hat 1,3 Millionen ___." + hint("inhabitants"), a: ["Einwohner"] },
+        { t: "gap", q: "Mein Auto ist kaputt, es ist in der ___." + hint("garage"), a: ["Werkstatt"] },
+        { t: "gap", q: "Im ___ spreche ich oft Englisch." + hint("at work"), a: ["Beruf"] },
+        { t: "gap", q: "Wir verkaufen ___ Räder: Stadträder, Kinderräder und E-Bikes." + hint("various"), a: ["verschiedene"] },
       ]},
 
       // ---------------- Lektion 2 – Wortschatz ----------------
@@ -68,16 +68,16 @@
         { t: "mc", q: "Der Opa ist ___.", opts: ["oben links", "oben rechts", "unten links", "in der Mitte"], a: "oben links" },
         { t: "mc", q: "Die Oma ist ___.", opts: ["oben links", "oben rechts", "unten rechts", "in der Mitte"], a: "oben rechts" },
         { t: "mc", q: "Das Mädchen 👧 steht ___.", opts: ["in der Mitte", "oben", "unten", "da hinten"], a: "in der Mitte" },
-        { t: "gap", q: "Der Hund ist ___ links." + hint("dole"), a: ["unten"] },
+        { t: "gap", q: "Der Hund ist ___ links." + hint("at the bottom"), a: ["unten"] },
         { t: "mc", q: "Oben in der Mitte ist der Kuchen. ___ sitzt rechts die Oma.", opts: ["Daneben", "Da hinten", "Unten"], a: "Daneben" },
         { t: "mc", q: "Wo ist die Katze? – Unten ___.", opts: ["rechts", "links", "vorn"], a: "rechts" },
       ]},
       { tag: "L2", ref: [2, "dict"], title: "F · Wortschatz L2 – Lücken", desc: "Write the missing word.", items: [
-        { t: "gap", q: "Der Deutschkurs findet in Raum 12 ___." + hint("koná se"), a: ["statt"] },
-        { t: "gap", q: "Meine Tante wohnt 300 Kilometer von uns ___." + hint("vzdálená"), a: ["entfernt"] },
-        { t: "gap", q: "Puste die Kerzen ___!" + hint("sfoukni"), a: ["aus"] },
-        { t: "gap", q: "Im Kino sitze ich gern ganz ___, in der letzten Reihe." + hint("vzadu"), a: ["hinten"] },
-        { t: "gap", q: "Mama, du ___ mir!" + hint("chybíš – fehlen"), a: ["fehlst"] },
+        { t: "gap", q: "Der Deutschkurs findet in Raum 12 ___." + hint("takes place"), a: ["statt"] },
+        { t: "gap", q: "Meine Tante wohnt 300 Kilometer von uns ___." + hint("away"), a: ["entfernt"] },
+        { t: "gap", q: "Puste die Kerzen ___!" + hint("blow out"), a: ["aus"] },
+        { t: "gap", q: "Im Kino sitze ich gern ganz ___, in der letzten Reihe." + hint("at the back"), a: ["hinten"] },
+        { t: "gap", q: "Mama, du ___ mir!" + hint("I miss you – fehlen"), a: ["fehlst"] },
       ]},
       { tag: "L2", ref: [2, "fam"], title: "G · Familie – Wer ist das?", desc: "Write the family member (without article) or choose.", items: [
         { t: "gap", q: "Die Mutter von meinem Vater ist meine ___.", a: ["Großmutter", "Oma"] },
@@ -151,7 +151,7 @@
         { t: "gap", q: "Wir helfen ___ Opa im Garten." + hint("unser"), a: ["unserem"] },
         { t: "gap", q: "Kommt ihr mit ___ Kindern?" + hint("euer"), a: ["euren"] },
         { t: "gap", q: "Das Rad gehört ___ Sohn." + hint("mein"), a: ["meinem"] },
-        { t: "gap", q: "Wie geht es ___ Mann, Frau Svobodová?" + hint("Ihr"), a: ["Ihrem"] },
+        { t: "gap", q: "Wie geht es ___ Mann, Frau Schmidt?" + hint("Ihr"), a: ["Ihrem"] },
       ]},
       { tag: "L2", ref: [2, "possdat"], title: "P · Nominativ, Akkusativ oder Dativ?", desc: "Choose the correct form.", items: [
         { t: "mc", q: "___ Bruder ist verrückt nach Fußball.", opts: ["Mein", "Meinen", "Meinem"], a: "Mein" },
@@ -167,14 +167,14 @@
         { t: "mc", q: "„Ich bin müde, weil ich habe lange gearbeitet.“", opts: TF, a: TF[1] },
         { t: "mc", q: "„Der Lehrer steht vorn an der Tafel.“", opts: TF, a: TF[0] },
       ]},
-      { tag: "L1+L2", title: "R · Übersetzen (Česky → Deutsch)", desc: "Translate the whole sentence. Punctuation and capital letters don't matter.", items: [
-        { t: "tr", q: "Moje sestra je stejně vysoká jako já.",
+      { tag: "L1+L2", title: "R · Übersetzen (English → Deutsch)", desc: "Translate the whole sentence. Punctuation and capital letters don't matter.", items: [
+        { t: "tr", q: "My sister is as tall as me.",
           a: ["Meine Schwester ist so groß wie ich", "Meine Schwester ist genauso groß wie ich"] },
-        { t: "tr", q: "Na obrázku chybí můj bratr.",
+        { t: "tr", q: "My brother is missing in the picture.",
           a: ["Auf dem Bild fehlt mein Bruder", "Mein Bruder fehlt auf dem Bild"] },
-        { t: "tr", q: "Bydlím u svých rodičů.",
+        { t: "tr", q: "I live with my parents.",
           a: ["Ich wohne bei meinen Eltern"] },
-        { t: "tr", q: "Hamburk je druhé největší město Německa.",
+        { t: "tr", q: "Hamburg is the second-largest city in Germany.",
           a: ["Hamburg ist die zweitgrößte Stadt Deutschlands", "Hamburg ist die zweitgrößte Stadt in Deutschland",
               "Hamburg ist die zweitgrößte Stadt von Deutschland"] },
       ]},
