@@ -90,6 +90,28 @@
         ex: "Im Korb sind Äpfel und Brot.", ext: "There are apples and bread in the basket." },
       { grp: NEW, de: "Bescheid sagen", g: "jdm. (Dat.) Bescheid sagen / geben · Bescheid wissen", en: "to let sb. know / to know about",
         ex: "Sag mir bitte Bescheid, wann die Party stattfindet.", ext: "Please let me know when the party takes place." },
+      { grp: NEW, de: "aufräumen", g: "räumt auf, räumte auf, hat aufgeräumt · separable", en: "to tidy up, to clean up",
+        ex: "Ich muss mein Zimmer aufräumen. Es ist so unordentlich!", ext: "I have to tidy up my room. It's so messy!" },
+      { grp: NEW, de: "ausleihen", g: "leiht aus, lieh aus, hat ausgeliehen · separable · (sich) etw. ausleihen", en: "to borrow; to lend (out)",
+        ex: "Ich leihe mir ein Buch in der Bibliothek aus.", ext: "I'm borrowing a book from the library." },
+      { grp: NEW, de: "vorbereiten", g: "bereitet vor, bereitete vor, hat vorbereitet · sich vorbereiten auf + Akk.", en: "to prepare",
+        ex: "Wir bereiten die Party für Oma vor.", ext: "We're preparing the party for grandma." },
+      { grp: NEW, de: "anklicken", g: "klickt an, klickte an, hat angeklickt · separable", en: "to click (on)",
+        ex: "Klicken Sie bitte den Link an.", ext: "Please click on the link. (= Klicken Sie auf den Link.)" },
+      { grp: NEW, de: "umziehen", g: "zieht um, zog um, ist umgezogen · sich umziehen (hat)", en: "to move (house); sich ~ = to get changed",
+        ex: "Wir sind nach Brünn umgezogen. – Ich ziehe mich schnell um.", ext: "We moved to Brno. – I'll quickly get changed." },
+      { grp: NEW, de: "im dritten Stock", g: "der Stock, - (= das Stockwerk) · im ersten / zweiten Stock", en: "on the third floor",
+        ex: "Meine Tante wohnt im dritten Stock.", ext: "My aunt lives on the third floor. (im = in dem → Dativ)" },
+      { grp: NEW, de: "die Abteilung", g: "-, die Abteilungen · in der Abteilung arbeiten", en: "department",
+        ex: "Meine Schwester arbeitet in der Abteilung für Marketing.", ext: "My sister works in the marketing department." },
+      { grp: NEW, de: "ab 7 Uhr", g: "ab + time = from … on", en: "from 7 o'clock (on)",
+        ex: "Das Frühstück gibt es ab 7 Uhr.", ext: "Breakfast is served from 7 o'clock." },
+      { grp: NEW, de: "Herzliches Beileid!", g: "= Mein Beileid! · das Beileid", en: "My condolences! / I'm sorry for your loss.",
+        ex: "Dein Opa ist gestorben? Mein herzliches Beileid.", ext: "Your grandpa died? My sincere condolences." },
+      { grp: NEW, de: "Herzlichen Glückwunsch zu …!", g: "zu + Dat. · der Glückwunsch, -wünsche", en: "Congratulations on …! / Happy …!",
+        ex: "Herzlichen Glückwunsch zum Geburtstag!", ext: "Happy birthday! (zum = zu dem)" },
+      { grp: NEW, de: "Gute Besserung!", g: "die Besserung", en: "Get well soon!",
+        ex: "Du bist krank? Gute Besserung!", ext: "You're ill? Get well soon!" },
 
       // ----- Familie -----
       { grp: FAM, de: "die Familie", g: "-, die Familien", en: "family",
@@ -172,7 +194,16 @@
       <p><b>Bescheid</b> is used in fixed phrases: <i>jdm. <mark>Bescheid sagen / geben</mark></i> = to let sb. know
         (<i>Sag mir Bescheid!</i>) · <i><mark>Bescheid wissen</mark></i> = to know about it (<i>Weißt du schon Bescheid?</i>).</p>
       <p><b>die Hose</b> is singular in German: <i>Die Hose <mark>ist</mark> neu.</i> (The trousers <u>are</u> new.)</p>
-      <p><b>lügen</b> is irregular: <i>log, hat gelogen</i>. Don't mix it up with <b>liegen</b> (to lie = be lying down: <i>lag, hat gelegen</i>).</p>`,
+      <p><b>lügen</b> is irregular: <i>log, hat gelogen</i>. Don't mix it up with <b>liegen</b> (to lie = be lying down: <i>lag, hat gelegen</i>).</p>
+      <p><b>aufräumen, ausleihen, vorbereiten, anklicken, umziehen</b> are all separable:
+        <i>Ich <mark>räume</mark> mein Zimmer <mark>auf</mark>.</i> · <i>Ich <mark>bereite</mark> das Essen <mark>vor</mark>.</i> · Perfekt: <i>auf<mark>ge</mark>räumt, aus<mark>ge</mark>liehen, vor<mark>ge</mark>bereitet, an<mark>ge</mark>klickt</i>.</p>
+      <p><b>umziehen</b> has two meanings: <i>Wir <mark>sind</mark> umgezogen.</i> = we moved house (Perfekt with <b>sein</b>) ·
+        <i>Ich ziehe <mark>mich</mark> um.</i> = I get changed (reflexive, Perfekt with <b>haben</b>: <i>Ich habe mich umgezogen.</i>).</p>
+      <p><b>ausleihen</b>: <i>Ich leihe <mark>mir</mark> ein Buch aus.</i> = I borrow · <i>Ich leihe <mark>dir</mark> mein Rad (aus).</i> = I lend you.</p>
+      <p><b>im dritten Stock</b> – <i>im</i> = in + dem (Dativ), so the adjective ending is <i>-en</i>. Careful: German <i>erster Stock</i> = the floor above the ground floor (<i>das Erdgeschoss</i>).</p>
+      <p><b>ab</b> + time = from … on: <i><mark>ab</mark> 7 Uhr, <mark>ab</mark> Montag</i>. Compare <i>um 7 Uhr</i> = at 7 o'clock (exactly).</p>
+      <p><b>Wishes:</b> <i>Herzlichen Glückwunsch <mark>zum</mark> Geburtstag / <mark>zur</mark> Hochzeit!</i> (zu + Dat.) ·
+        <i>Gute Besserung!</i> (to someone ill) · <i>Herzliches / Mein Beileid!</i> (when someone has died).</p>`,
 
     // ---------- Grammatik ----------
     grammar: [
@@ -512,6 +543,21 @@
         { t: "mc", q: "Mein Opa ist nicht mehr so stark. Er ist ___.", opts: ["schwach", "gefährlich", "unordentlich"], a: "schwach" },
         { t: "mc", q: "Im ___ sind Äpfel und Brot.", opts: ["Korb", "Denkmal", "Hose"], a: "Korb" },
         { t: "mc", q: "Fahr nicht so schnell, das ist ___!", opts: ["gefährlich", "schwach", "geheim"], a: "gefährlich" },
+      ]},
+      { title: "L · Trennbare Verben & Wünsche", desc: "Write the missing word or choose the right answer.", items: [
+        { t: "gap", q: "Mein Zimmer ist unordentlich. Ich räume es heute ___. <span class='tip'>(aufräumen)</span>", a: ["auf"] },
+        { t: "gap", q: "Ich ___ mir ein Buch in der Bibliothek aus. <span class='tip'>(ausleihen)</span>", a: ["leihe"] },
+        { t: "gap", q: "Wir haben das Essen schon ___. <span class='tip'>(vorbereiten, Perfekt)</span>", a: ["vorbereitet"] },
+        { t: "gap", q: "Bitte klicken Sie den Link ___. <span class='tip'>(anklicken)</span>", a: ["an"] },
+        { t: "mc", q: "Letztes Jahr ___ wir nach Prag umgezogen.", opts: ["sind", "haben"], a: "sind" },
+        { t: "mc", q: "Ich gehe ins Bad und ziehe ___ um.", opts: ["mich", "mir", "mein"], a: "mich" },
+        { t: "mc", q: "Meine Wohnung ist ___ dritten Stock.", opts: ["im", "in", "am"], a: "im" },
+        { t: "gap", q: "Er arbeitet in der ___ für Personal. <span class='tip'>(department)</span>", a: ["Abteilung"] },
+        { t: "mc", q: "Der Supermarkt ist ___ 7 Uhr geöffnet.", opts: ["ab", "seit", "von"], a: "ab" },
+        { t: "mc", q: "Deine Schwester hat heute Geburtstag? ___", opts: ["Herzlichen Glückwunsch!", "Gute Besserung!", "Mein Beileid!"], a: "Herzlichen Glückwunsch!" },
+        { t: "mc", q: "Du hast Grippe? ___", opts: ["Gute Besserung!", "Herzlichen Glückwunsch!", "Mein Beileid!"], a: "Gute Besserung!" },
+        { t: "mc", q: "Ihr Vater ist gestorben? Herzliches ___.", opts: ["Beileid", "Glückwunsch", "Besserung"], a: "Beileid" },
+        { t: "gap", q: "Herzlichen Glückwunsch ___ Geburtstag! <span class='tip'>(zu + dem)</span>", a: ["zum"] },
       ]},
     ],
   });
